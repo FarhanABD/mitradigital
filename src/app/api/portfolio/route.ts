@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
-import { prisma } from '@/lib/prisma';
+import { db, Timestamp } from '@/lib/firebase';
+import type { QueryDocumentSnapshot } from 'firebase-admin/firestore';
 import { portfolioData } from '@/data/portfolio';
 
 const projectSchema = z.object({
@@ -22,16 +23,24 @@ const projectSchema = z.object({
 // GET: Ambil daftar projek (dari database atau fallback static)
 export async function GET() {
   try {
-    if (process.env.DATABASE_URL) {
-      const dbProjects = await prisma.project.findMany({
-        orderBy: { createdAt: 'desc' },
-      });
-      if (dbProjects.length > 0) {
+    if (process.env.FIREBASE_PROJECT_ID) {
+      const snapshot = await db.collection('projects').orderBy('createdAt', 'desc').get();
+      if (!snapshot.empty) {
+        const dbProjects = snapshot.docs.map((doc: QueryDocumentSnapshot) => {
+          const data = doc.data();
+          return {
+            id: doc.id,
+            ...data,
+            createdAt: data.createdAt?.toDate ? data.createdAt.toDate().toISOString() : data.createdAt,
+            updatedAt: data.updatedAt?.toDate ? data.updatedAt.toDate().toISOString() : data.updatedAt,
+          };
+        });
         return NextResponse.json({ success: true, data: dbProjects });
       }
     }
     return NextResponse.json({ success: true, data: portfolioData });
   } catch (error) {
+    console.error('Error fetching portfolio from Firestore:', error);
     return NextResponse.json({ success: true, data: portfolioData });
   }
 }
@@ -42,36 +51,38 @@ export async function POST(request: Request) {
     const body = await request.json();
     const validatedData = projectSchema.parse(body);
 
-    if (!process.env.DATABASE_URL) {
+    if (!process.env.FIREBASE_PROJECT_ID) {
       return NextResponse.json(
         {
           success: false,
-          message: 'DATABASE_URL belum dikonfigurasi. Hubungkan database PostgreSQL di Vercel/environment terlebih dahulu.'
+          message: 'FIREBASE_PROJECT_ID belum dikonfigurasi. Hubungkan Firebase di environment terlebih dahulu.'
         },
         { status: 400 }
       );
     }
 
-    const createdProject = await prisma.project.create({
-      data: {
-        title: validatedData.title,
-        category: validatedData.category,
-        categoryLabel: validatedData.categoryLabel,
-        description: validatedData.description,
-        client: validatedData.client,
-        technologies: validatedData.technologies,
-        image: validatedData.image,
-        images: validatedData.images || [validatedData.image],
-        stats: validatedData.stats ? JSON.parse(JSON.stringify(validatedData.stats)) : undefined,
-        liveUrl: validatedData.liveUrl || null,
-      },
-    });
+    const newProject = {
+      title: validatedData.title,
+      category: validatedData.category,
+      categoryLabel: validatedData.categoryLabel,
+      description: validatedData.description,
+      client: validatedData.client,
+      technologies: validatedData.technologies,
+      image: validatedData.image,
+      images: validatedData.images || [validatedData.image],
+      stats: validatedData.stats || [],
+      liveUrl: validatedData.liveUrl || null,
+      createdAt: Timestamp.now(),
+      updatedAt: Timestamp.now(),
+    };
+
+    const docRef = await db.collection('projects').add(newProject);
 
     return NextResponse.json(
       {
         success: true,
         message: 'Projek portofolio berhasil ditambahkan ke database!',
-        data: createdProject,
+        data: { id: docRef.id, ...validatedData },
       },
       { status: 201 }
     );

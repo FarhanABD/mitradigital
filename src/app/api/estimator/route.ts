@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
-import { prisma } from '@/lib/prisma';
+import { db, Timestamp } from '@/lib/firebase';
 
 const estimatorSchema = z.object({
   clientName: z.string().optional(),
@@ -17,17 +17,17 @@ export async function POST(request: Request) {
     const validatedData = estimatorSchema.parse(body);
 
     let savedSubmission = null;
-    if (process.env.DATABASE_URL) {
-      savedSubmission = await prisma.estimateSubmission.create({
-        data: {
-          clientName: validatedData.clientName || 'Guest User',
-          clientEmail: validatedData.clientEmail || null,
-          clientPhone: validatedData.clientPhone || null,
-          selectedOptions: validatedData.selectedOptions,
-          estimatedPrice: validatedData.estimatedPrice,
-          estimatedDays: validatedData.estimatedDays,
-        },
+    if (process.env.FIREBASE_PROJECT_ID) {
+      const docRef = await db.collection('estimates').add({
+        clientName: validatedData.clientName || 'Guest User',
+        clientEmail: validatedData.clientEmail || null,
+        clientPhone: validatedData.clientPhone || null,
+        selectedOptions: validatedData.selectedOptions,
+        estimatedPrice: validatedData.estimatedPrice,
+        estimatedDays: validatedData.estimatedDays,
+        createdAt: Timestamp.now(),
       });
+      savedSubmission = { id: docRef.id, ...validatedData };
     }
 
     return NextResponse.json(

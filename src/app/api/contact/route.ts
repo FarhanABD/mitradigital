@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
-import { prisma } from '@/lib/prisma';
+import { db, Timestamp } from '@/lib/firebase';
 import { Resend } from 'resend';
 
 // Schema validasi request kontak dengan Zod
@@ -20,12 +20,16 @@ export async function POST(request: Request) {
     const body = await request.json();
     const validatedData = contactSchema.parse(body);
 
-    // 1. Simpan Lead ke Database (Jika DATABASE_URL dikonfigurasi)
+    // 1. Simpan Lead ke Firestore (Jika FIREBASE_PROJECT_ID dikonfigurasi)
     let savedLead = null;
-    if (process.env.DATABASE_URL) {
-      savedLead = await prisma.contactLead.create({
-        data: validatedData,
+    if (process.env.FIREBASE_PROJECT_ID) {
+      const docRef = await db.collection('contacts').add({
+        ...validatedData,
+        status: 'NEW',
+        createdAt: Timestamp.now(),
+        updatedAt: Timestamp.now(),
       });
+      savedLead = { id: docRef.id, ...validatedData };
     }
 
     // 2. Kirim Notifikasi Email jika RESEND_API_KEY diset
