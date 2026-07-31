@@ -59,13 +59,70 @@ export default function AdminUploadPage() {
     }));
   };
 
+  // Kompresi otomatis gambar agar muat di database (maksimal 1200px, kualitas 80% WebP)
+  const compressImage = async (file: File): Promise<File> => {
+    if (file.size < 200 * 1024 || !file.type.startsWith('image/')) {
+      return file;
+    }
+    return new Promise((resolve) => {
+      const img = new Image();
+      const reader = new FileReader();
+
+      reader.onload = (e) => {
+        img.src = e.target?.result as string;
+      };
+
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        let width = img.width;
+        let height = img.height;
+        const maxDim = 1200;
+
+        if (width > maxDim || height > maxDim) {
+          if (width > height) {
+            height = Math.round((height * maxDim) / width);
+            width = maxDim;
+          } else {
+            width = Math.round((width * maxDim) / height);
+            height = maxDim;
+          }
+        }
+
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        ctx?.drawImage(img, 0, 0, width, height);
+
+        canvas.toBlob(
+          (blob) => {
+            if (blob) {
+              const compressedFile = new File([blob], file.name.replace(/\.[^/.]+$/, "") + ".webp", {
+                type: 'image/webp',
+                lastModified: Date.now(),
+              });
+              resolve(compressedFile);
+            } else {
+              resolve(file);
+            }
+          },
+          'image/webp',
+          0.8
+        );
+      };
+
+      img.onerror = () => resolve(file);
+      reader.readAsDataURL(file);
+    });
+  };
+
   // Upload file dari komputer ke backend API /api/upload
   const handleMainFileUpload = async (file: File) => {
     setUploadingMain(true);
     setStatusMessage(null);
     try {
+      const processedFile = await compressImage(file);
       const data = new FormData();
-      data.append('file', file);
+      data.append('file', processedFile);
 
       const res = await fetch('/api/upload', {
         method: 'POST',
@@ -77,7 +134,7 @@ export default function AdminUploadPage() {
         setFormData((prev) => ({ ...prev, image: result.url }));
         setStatusMessage({
           type: 'success',
-          text: '✅ Gambar utama berhasil diunggah dari komputer!',
+          text: '✅ Gambar utama berhasil diunggah dan dioptimasi dari komputer!',
         });
       } else {
         setStatusMessage({
@@ -103,7 +160,7 @@ export default function AdminUploadPage() {
 
     try {
       for (let i = 0; i < files.length; i++) {
-        const file = files[i];
+        const file = await compressImage(files[i]);
         const data = new FormData();
         data.append('file', file);
 

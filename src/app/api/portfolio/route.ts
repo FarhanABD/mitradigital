@@ -96,7 +96,7 @@ export async function POST(request: Request) {
 
     console.error('Error creating project:', error);
     return NextResponse.json(
-      { success: false, message: 'Gagal menyimpan projek ke database.' },
+      { success: false, message: error?.message ? `Gagal menyimpan projek: ${error.message}` : 'Gagal menyimpan projek ke database.' },
       { status: 500 }
     );
   }
