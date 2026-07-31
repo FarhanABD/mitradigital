@@ -1,5 +1,6 @@
 import { initializeApp, getApps, cert } from 'firebase-admin/app';
 import { getFirestore, Timestamp } from 'firebase-admin/firestore';
+import { getStorage } from 'firebase-admin/storage';
 
 function parsePrivateKey(key?: string): string | undefined {
   if (!key) return undefined;
@@ -14,15 +15,16 @@ function parsePrivateKey(key?: string): string | undefined {
 
 function initFirebaseAdmin() {
   if (getApps().length > 0) {
-    return getFirestore();
+    return true;
   }
 
   const projectId = process.env.FIREBASE_PROJECT_ID;
   const clientEmail = process.env.FIREBASE_CLIENT_EMAIL;
   const privateKey = parsePrivateKey(process.env.FIREBASE_PRIVATE_KEY);
+  const storageBucket = process.env.FIREBASE_STORAGE_BUCKET || (projectId ? `${projectId}.appspot.com` : undefined);
 
   if (!projectId || !clientEmail || !privateKey) {
-    return null;
+    return false;
   }
 
   try {
@@ -32,24 +34,39 @@ function initFirebaseAdmin() {
         clientEmail,
         privateKey,
       }),
+      storageBucket,
     });
-    return getFirestore();
+    return true;
   } catch (error) {
     console.error('Failed to initialize Firebase Admin SDK:', error);
-    return null;
+    return false;
   }
 }
 
 // Proxy for db to allow lazy initialization and avoid build-time errors
 export const db = new Proxy({} as ReturnType<typeof getFirestore>, {
   get(_target, prop) {
-    const firestore = initFirebaseAdmin();
-    if (!firestore) {
+    const initialized = initFirebaseAdmin();
+    if (!initialized) {
       throw new Error('Firebase Firestore is not initialized. Please check your FIREBASE_* environment variables.');
     }
+    const firestore = getFirestore();
     const value = (firestore as any)[prop];
     return typeof value === 'function' ? value.bind(firestore) : value;
   },
 });
 
-export { Timestamp };
+// Proxy for storage to allow lazy initialization
+export const storage = new Proxy({} as ReturnType<typeof getStorage>, {
+  get(_target, prop) {
+    const initialized = initFirebaseAdmin();
+    if (!initialized) {
+      throw new Error('Firebase Storage is not initialized. Please check your FIREBASE_* environment variables.');
+    }
+    const storageObj = getStorage();
+    const value = (storageObj as any)[prop];
+    return typeof value === 'function' ? value.bind(storageObj) : value;
+  },
+});
+
+export { Timestamp };

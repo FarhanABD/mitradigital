@@ -11,8 +11,8 @@ const projectSchema = z.object({
   description: z.string().min(10, 'Deskripsi minimal 10 karakter'),
   client: z.string().min(2, 'Nama klien minimal 2 karakter'),
   technologies: z.array(z.string()).min(1, 'Pilih minimal 1 teknologi'),
-  image: z.string().url('URL gambar utama tidak valid'),
-  images: z.array(z.string().url('URL gambar tambahan tidak valid')).optional(),
+  image: z.string().min(1, 'Gambar utama wajib diisi'),
+  images: z.array(z.string().min(1)).optional(),
   stats: z.array(z.object({
     label: z.string(),
     value: z.string(),

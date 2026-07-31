@@ -1,9 +1,21 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
-import { PlusCircle, Image as ImageIcon, Trash2, CheckCircle2, AlertCircle, ArrowLeft, Loader2, Sparkles } from 'lucide-react';
+import {
+  PlusCircle,
+  Image as ImageIcon,
+  Trash2,
+  CheckCircle2,
+  AlertCircle,
+  ArrowLeft,
+  Loader2,
+  Sparkles,
+  UploadCloud,
+  X,
+  Link as LinkIcon,
+} from 'lucide-react';
 import Link from 'next/link';
 
 export default function AdminUploadPage() {
@@ -23,8 +35,15 @@ export default function AdminUploadPage() {
     stat2Value: '10.000+',
   });
 
+  const [mainInputMode, setMainInputMode] = useState<'file' | 'url'>('file');
+  const [uploadingMain, setUploadingMain] = useState(false);
+  const [uploadingGallery, setUploadingGallery] = useState(false);
+
   const [loading, setLoading] = useState(false);
   const [statusMessage, setStatusMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+
+  const mainFileInputRef = useRef<HTMLInputElement>(null);
+  const galleryFileInputRef = useRef<HTMLInputElement>(null);
 
   const handleCategoryChange = (cat: 'web' | 'mobile' | 'enterprise' | 'ai') => {
     const labelsMap: Record<string, string> = {
@@ -40,10 +59,102 @@ export default function AdminUploadPage() {
     }));
   };
 
+  // Upload file dari komputer ke backend API /api/upload
+  const handleMainFileUpload = async (file: File) => {
+    setUploadingMain(true);
+    setStatusMessage(null);
+    try {
+      const data = new FormData();
+      data.append('file', file);
+
+      const res = await fetch('/api/upload', {
+        method: 'POST',
+        body: data,
+      });
+
+      const result = await res.json();
+      if (res.ok && result.success) {
+        setFormData((prev) => ({ ...prev, image: result.url }));
+        setStatusMessage({
+          type: 'success',
+          text: '✅ Gambar utama berhasil diunggah dari komputer!',
+        });
+      } else {
+        setStatusMessage({
+          type: 'error',
+          text: result.message || 'Gagal mengunggah gambar.',
+        });
+      }
+    } catch (err: any) {
+      setStatusMessage({
+        type: 'error',
+        text: 'Gagal mengunggah file. Pastikan ukuran file tidak melebihi 5MB.',
+      });
+    } finally {
+      setUploadingMain(false);
+    }
+  };
+
+  // Upload gambar galeri dari komputer
+  const handleGalleryFileUpload = async (files: FileList) => {
+    setUploadingGallery(true);
+    setStatusMessage(null);
+    const uploadedUrls: string[] = [];
+
+    try {
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        const data = new FormData();
+        data.append('file', file);
+
+        const res = await fetch('/api/upload', {
+          method: 'POST',
+          body: data,
+        });
+
+        const result = await res.json();
+        if (res.ok && result.success) {
+          uploadedUrls.push(result.url);
+        }
+      }
+
+      if (uploadedUrls.length > 0) {
+        setFormData((prev) => {
+          const currentList = prev.imagesStr
+            .split('\n')
+            .map((u) => u.trim())
+            .filter(Boolean);
+          const newList = [...currentList, ...uploadedUrls].join('\n');
+          return { ...prev, imagesStr: newList };
+        });
+        setStatusMessage({
+          type: 'success',
+          text: `✅ ${uploadedUrls.length} gambar tambahan berhasil diunggah!`,
+        });
+      }
+    } catch (err: any) {
+      setStatusMessage({
+        type: 'error',
+        text: 'Terjadi kesalahan saat mengunggah gambar galeri.',
+      });
+    } finally {
+      setUploadingGallery(false);
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setStatusMessage(null);
+
+    if (!formData.image) {
+      setStatusMessage({
+        type: 'error',
+        text: 'Gambar utama wajib diunggah atau diisi!',
+      });
+      setLoading(false);
+      return;
+    }
 
     try {
       // Parse technologies
@@ -95,7 +206,7 @@ export default function AdminUploadPage() {
           type: 'success',
           text: '🎉 Projek portofolio berhasil disimpan ke database!',
         });
-        // Reset form ringkas
+        // Reset form
         setFormData((prev) => ({
           ...prev,
           title: '',
@@ -114,7 +225,7 @@ export default function AdminUploadPage() {
     } catch (err: any) {
       setStatusMessage({
         type: 'error',
-        text: 'Terjadi kesalahan koneksi. Pastikan database PostgreSQL di Vercel sudah terhubung.',
+        text: 'Terjadi kesalahan koneksi saat menyimpan projek.',
       });
     } finally {
       setLoading(false);
@@ -145,7 +256,7 @@ export default function AdminUploadPage() {
                 Upload Projek <span className="text-gradient">Portofolio Baru</span>
               </h1>
               <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-0.5">
-                Tambahkan hasil karya terbaik Mitra Digital Solution langsung ke database secara dinamis.
+                Unggah file gambar dari komputer Anda dan tambahkan karya terbaik Mitra Digital Solution.
               </p>
             </div>
           </div>
@@ -245,39 +356,174 @@ export default function AdminUploadPage() {
               />
             </div>
 
-            {/* Gambar Utama & Multi-Images */}
-            <div className="space-y-4">
-              <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-2">
-                  URL Gambar Utama (Cover Thumbnail) *
+            {/* Gambar Utama (Upload Lokal vs Link) */}
+            <div className="space-y-3 p-5 rounded-2xl bg-slate-100/80 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800">
+              <div className="flex items-center justify-between">
+                <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
+                  Gambar Utama (Cover) *
                 </label>
-                <div className="flex gap-2">
+
+                {/* Mode Selector */}
+                <div className="flex gap-1 bg-slate-200 dark:bg-slate-800 p-1 rounded-lg">
+                  <button
+                    type="button"
+                    onClick={() => setMainInputMode('file')}
+                    className={`px-3 py-1 rounded-md text-xs font-semibold flex items-center gap-1.5 transition-colors ${
+                      mainInputMode === 'file'
+                        ? 'bg-white dark:bg-slate-900 text-brand-500 shadow-sm'
+                        : 'text-slate-600 dark:text-slate-400'
+                    }`}
+                  >
+                    <UploadCloud className="w-3.5 h-3.5" />
+                    <span>Upload File</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setMainInputMode('url')}
+                    className={`px-3 py-1 rounded-md text-xs font-semibold flex items-center gap-1.5 transition-colors ${
+                      mainInputMode === 'url'
+                        ? 'bg-white dark:bg-slate-900 text-brand-500 shadow-sm'
+                        : 'text-slate-600 dark:text-slate-400'
+                    }`}
+                  >
+                    <LinkIcon className="w-3.5 h-3.5" />
+                    <span>URL Web</span>
+                  </button>
+                </div>
+              </div>
+
+              {mainInputMode === 'file' ? (
+                <div>
                   <input
-                    type="url"
-                    required
-                    placeholder="https://images.unsplash.com/photo-..."
+                    type="file"
+                    ref={mainFileInputRef}
+                    accept="image/*"
+                    className="hidden"
+                    onChange={(e) => {
+                      if (e.target.files && e.target.files[0]) {
+                        handleMainFileUpload(e.target.files[0]);
+                      }
+                    }}
+                  />
+
+                  {formData.image ? (
+                    <div className="relative rounded-xl overflow-hidden border border-slate-200 dark:border-slate-800 group">
+                      <img
+                        src={formData.image}
+                        alt="Preview Main"
+                        className="w-full h-48 object-cover rounded-xl"
+                      />
+                      <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3">
+                        <button
+                          type="button"
+                          onClick={() => mainFileInputRef.current?.click()}
+                          className="px-3 py-1.5 bg-white text-slate-900 rounded-lg text-xs font-bold shadow-lg hover:bg-slate-100"
+                        >
+                          Ganti Gambar
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setFormData({ ...formData, image: '' })}
+                          className="p-1.5 bg-rose-600 text-white rounded-lg hover:bg-rose-700"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </button>
+                      </div>
+                    </div>
+                  ) : (
+                    <button
+                      type="button"
+                      disabled={uploadingMain}
+                      onClick={() => mainFileInputRef.current?.click()}
+                      className="w-full py-8 border-2 border-dashed border-slate-300 dark:border-slate-700 hover:border-brand-500 dark:hover:border-brand-500 rounded-xl flex flex-col items-center justify-center gap-2 bg-white/50 dark:bg-slate-900/50 transition-colors group cursor-pointer"
+                    >
+                      {uploadingMain ? (
+                        <>
+                          <Loader2 className="w-8 h-8 text-brand-500 animate-spin" />
+                          <span className="text-xs font-semibold text-slate-600 dark:text-slate-400">
+                            Mengunggah foto dari komputer...
+                          </span>
+                        </>
+                      ) : (
+                        <>
+                          <div className="p-3 rounded-full bg-brand-500/10 text-brand-500 group-hover:scale-110 transition-transform">
+                            <UploadCloud className="w-6 h-6" />
+                          </div>
+                          <span className="text-xs font-bold text-slate-700 dark:text-slate-300">
+                            Klik untuk memilih file gambar dari komputer Anda
+                          </span>
+                          <span className="text-[11px] text-slate-400">
+                            Format yang didukung: PNG, JPG, WEBP, GIF (Maks. 5MB)
+                          </span>
+                        </>
+                      )}
+                    </button>
+                  )}
+                </div>
+              ) : (
+                <div>
+                  <input
+                    type="text"
+                    placeholder="Tempel URL gambar (https://...)"
                     value={formData.image}
                     onChange={(e) => setFormData({ ...formData, image: e.target.value })}
                     className="w-full px-4 py-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 text-sm focus:outline-none focus:border-brand-500"
                   />
+                  {formData.image && (
+                    <div className="mt-3">
+                      <img
+                        src={formData.image}
+                        alt="Preview URL"
+                        className="w-full h-32 object-cover rounded-xl border border-slate-200 dark:border-slate-800"
+                      />
+                    </div>
+                  )}
                 </div>
-                <p className="text-[11px] text-slate-500 mt-1">
-                  Tips: Anda bisa menggunakan URL Unsplash, Cloudinary, Imgur, atau file static publik.
-                </p>
+              )}
+            </div>
+
+            {/* Gambar Galeri Tambahan (Upload Lokal) */}
+            <div className="space-y-3 p-5 rounded-2xl bg-slate-100/80 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800">
+              <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
+                Gambar Galeri Tambahan (Opsional)
+              </label>
+
+              <input
+                type="file"
+                multiple
+                ref={galleryFileInputRef}
+                accept="image/*"
+                className="hidden"
+                onChange={(e) => {
+                  if (e.target.files && e.target.files.length > 0) {
+                    handleGalleryFileUpload(e.target.files);
+                  }
+                }}
+              />
+
+              <div className="flex gap-2">
+                <button
+                  type="button"
+                  disabled={uploadingGallery}
+                  onClick={() => galleryFileInputRef.current?.click()}
+                  className="px-4 py-2.5 rounded-xl bg-slate-200 dark:bg-slate-800 hover:bg-brand-500 hover:text-white text-slate-700 dark:text-slate-300 font-semibold text-xs flex items-center gap-2 transition-colors disabled:opacity-50"
+                >
+                  {uploadingGallery ? (
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                  ) : (
+                    <UploadCloud className="w-4 h-4" />
+                  )}
+                  <span>Pilih File Gambar dari Komputer</span>
+                </button>
               </div>
 
-              <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-2">
-                  URL Gambar Tambahan untuk Carousel (1 URL per baris)
-                </label>
-                <textarea
-                  rows={3}
-                  placeholder="https://images.unsplash.com/photo-1&#10;https://images.unsplash.com/photo-2"
-                  value={formData.imagesStr}
-                  onChange={(e) => setFormData({ ...formData, imagesStr: e.target.value })}
-                  className="w-full px-4 py-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 text-sm focus:outline-none focus:border-brand-500 font-mono text-xs"
-                />
-              </div>
+              <textarea
+                rows={3}
+                placeholder="Daftar URL gambar (1 baris per URL)..."
+                value={formData.imagesStr}
+                onChange={(e) => setFormData({ ...formData, imagesStr: e.target.value })}
+                className="w-full px-4 py-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 text-xs font-mono focus:outline-none focus:border-brand-500"
+              />
             </div>
 
             {/* Teknologi (Pisahkan Koma) */}
@@ -354,7 +600,7 @@ export default function AdminUploadPage() {
             <div className="pt-4">
               <button
                 type="submit"
-                disabled={loading}
+                disabled={loading || uploadingMain || uploadingGallery}
                 className="w-full py-4 rounded-xl bg-gradient-to-r from-brand-500 to-blue-600 hover:from-brand-400 text-white font-bold text-sm shadow-xl shadow-brand-500/25 flex items-center justify-center gap-2 transition-transform hover:scale-[1.01] active:scale-[0.99] disabled:opacity-50"
               >
                 {loading ? (
