@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { portfolioData } from '@/data/portfolio';
 import { PortfolioItem } from '@/types';
+import { useLanguage } from '@/context/LanguageContext';
 import { Briefcase, ExternalLink, X, ArrowUpRight, CheckCircle2, ChevronLeft, ChevronRight } from 'lucide-react';
 
 // Subcomponent Image Carousel
@@ -83,6 +84,7 @@ export default function PortfolioSection() {
   const [filter, setFilter] = useState<'all' | 'web' | 'mobile' | 'enterprise' | 'ai'>('all');
   const [activeItem, setActiveItem] = useState<PortfolioItem | null>(null);
   const [projectsList, setProjectsList] = useState<PortfolioItem[]>(portfolioData);
+  const { t } = useLanguage();
 
   // Sync data dari API /api/portfolio jika tersedia
   useEffect(() => {
@@ -97,11 +99,11 @@ export default function PortfolioSection() {
   }, []);
 
   const categories = [
-    { key: 'all', label: 'Semua Projek' },
-    { key: 'web', label: 'Web Application' },
-    { key: 'mobile', label: 'Mobile Apps' },
-    { key: 'enterprise', label: 'Enterprise ERP' },
-    { key: 'ai', label: 'Artificial Intelligence' },
+    { key: 'all', label: t('Semua Projek') },
+    { key: 'web', label: t('Web App') },
+    { key: 'mobile', label: t('Mobile App') },
+    { key: 'enterprise', label: t('Enterprise') },
+    { key: 'ai', label: t('AI & Automation') },
   ];
 
   const filteredData = filter === 'all'
@@ -116,13 +118,13 @@ export default function PortfolioSection() {
         <div className="text-center max-w-3xl mx-auto mb-14">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-500/10 border border-brand-500/20 text-brand-600 dark:text-brand-400 text-xs font-semibold uppercase tracking-wider mb-3">
             <Briefcase className="w-3.5 h-3.5" />
-            <span>Portofolio Unggulan</span>
+            <span>{t('Portofolio Unggulan')}</span>
           </div>
           <h2 className="text-3xl sm:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-4">
-            Hasil Karya <span className="text-gradient">Mitra Digital</span>
+            {t('Hasil Karya ')}<span className="text-gradient">{t('Mitra Digital')}</span>
           </h2>
           <p className="text-slate-600 dark:text-slate-400 text-base sm:text-lg">
-            Beberapa hasil karya terbaik yang telah kami bagun untuk berbagai klien industri , personal, hingga UMKM.
+            {t('Beberapa hasil karya terbaik yang telah kami bagun untuk berbagai klien industri , personal, hingga UMKM.')}
           </p>
         </div>
 
@@ -157,7 +159,7 @@ export default function PortfolioSection() {
                     <ImageCarousel images={itemImages} title={item.title} />
                     <div className="absolute top-4 left-4 z-10 pointer-events-none">
                       <span className="px-3 py-1 rounded-full bg-slate-950/80 backdrop-blur-md border border-white/10 text-brand-400 text-[10px] font-bold uppercase tracking-wider">
-                        {item.categoryLabel}
+                        {t(item.categoryLabel)}
                       </span>
                     </div>
                   </div>
@@ -165,10 +167,10 @@ export default function PortfolioSection() {
                   {/* Content */}
                   <div className="p-6">
                     <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
-                      {item.title}
+                      {t(item.title)}
                     </h3>
                     <p className="text-slate-600 dark:text-slate-400 text-xs leading-relaxed mb-4 line-clamp-2">
-                      {item.description}
+                      {t(item.description)}
                     </p>
 
                     {/* Stats Badges */}
@@ -176,8 +178,8 @@ export default function PortfolioSection() {
                       <div className="grid grid-cols-2 gap-2 mb-4 p-2.5 rounded-xl bg-slate-100 dark:bg-slate-950/80 border border-slate-200 dark:border-slate-800">
                         {item.stats.map((s, idx) => (
                           <div key={idx} className="text-left">
-                            <div className="text-[10px] text-slate-500 dark:text-slate-400">{s.label}</div>
-                            <div className="text-xs font-bold text-brand-600 dark:text-brand-400 font-mono">{s.value}</div>
+                            <div className="text-[10px] text-slate-500 dark:text-slate-400">{t(s.label)}</div>
+                            <div className="text-xs font-bold text-brand-600 dark:text-brand-400 font-mono">{t(s.value)}</div>
                           </div>
                         ))}
                       </div>
@@ -199,7 +201,7 @@ export default function PortfolioSection() {
                     onClick={() => setActiveItem(item)}
                     className="w-full py-2.5 rounded-xl bg-slate-200/70 dark:bg-white/5 hover:bg-brand-500/20 border border-slate-300 dark:border-white/10 text-slate-800 dark:text-slate-200 text-xs font-semibold flex items-center justify-center gap-2 transition-colors"
                   >
-                    <span>Lihat Detail Studi Kasus</span>
+                    <span>{t('Lihat Detail Studi Kasus')}</span>
                     <ArrowUpRight className="w-3.5 h-3.5" />
                   </button>
                 </div>
@@ -212,11 +214,12 @@ export default function PortfolioSection() {
 
       {/* Case Study Modal */}
       {activeItem && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 dark:bg-black/85 backdrop-blur-md">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 dark:bg-black/85 backdrop-blur-md animate-fadeIn">
           <div className="bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-3xl max-w-3xl w-full p-6 sm:p-8 relative max-h-[90vh] overflow-y-auto text-slate-900 dark:text-slate-100">
             <button
               onClick={() => setActiveItem(null)}
               className="absolute top-6 right-6 z-20 p-2 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white rounded-full bg-slate-100 dark:bg-slate-800 transition-colors"
+              aria-label="Close modal"
             >
               <X className="w-5 h-5" />
             </button>
@@ -230,14 +233,14 @@ export default function PortfolioSection() {
 
             <div className="mb-4">
               <span className="px-3 py-1 rounded-full bg-brand-500/20 text-brand-600 dark:text-brand-400 text-xs font-bold uppercase tracking-wider">
-                {activeItem.categoryLabel}
+                {t(activeItem.categoryLabel)}
               </span>
-              <h3 className="text-2xl font-bold text-slate-900 dark:text-white mt-2">{activeItem.title}</h3>
-              <p className="text-slate-500 dark:text-slate-400 text-xs mt-1">Klien: <span className="text-slate-800 dark:text-slate-200 font-semibold">{activeItem.client}</span></p>
+              <h3 className="text-2xl font-bold text-slate-900 dark:text-white mt-2">{t(activeItem.title)}</h3>
+              <p className="text-slate-500 dark:text-slate-400 text-xs mt-1">{t('Klien: ')}<span className="text-slate-800 dark:text-slate-200 font-semibold">{t(activeItem.client)}</span></p>
             </div>
 
             <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed mb-6">
-              {activeItem.description}
+              {t(activeItem.description)}
             </p>
 
             {activeItem.stats && (
@@ -245,18 +248,18 @@ export default function PortfolioSection() {
                 {activeItem.stats.map((st, i) => (
                   <div key={i} className="p-4 rounded-xl bg-slate-100 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-center">
                     <div className="text-2xl font-extrabold text-brand-600 dark:text-brand-400 font-mono mb-1">{st.value}</div>
-                    <div className="text-xs text-slate-500 dark:text-slate-400">{st.label}</div>
+                    <div className="text-xs text-slate-500 dark:text-slate-400">{t(st.label)}</div>
                   </div>
                 ))}
               </div>
             )}
 
             <div className="mb-8">
-              <h4 className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Teknologi Dipergunakan:</h4>
+              <h4 className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">{t('Teknologi Dipergunakan:')}</h4>
               <div className="flex flex-wrap gap-2">
-                {activeItem.technologies.map((t, idx) => (
+                {activeItem.technologies.map((tItem, idx) => (
                   <span key={idx} className="px-3 py-1 rounded-lg bg-slate-100 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-200 text-xs font-mono">
-                    {t}
+                    {tItem}
                   </span>
                 ))}
               </div>
@@ -269,13 +272,13 @@ export default function PortfolioSection() {
                 rel="noopener noreferrer"
                 className="w-full py-3.5 rounded-xl bg-gradient-to-r from-brand-500 to-blue-600 hover:from-brand-400 text-white font-bold text-sm text-center shadow-lg shadow-brand-500/25"
               >
-                Buat Sistem Serupa untuk Bisnis Saya
+                {t('Buat Sistem Serupa untuk Bisnis Saya')}
               </a>
               <button
                 onClick={() => setActiveItem(null)}
                 className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-300 text-sm font-semibold hover:bg-slate-300 dark:hover:bg-slate-700"
               >
-                Tutup
+                {t('Tutup')}
               </button>
             </div>
           </div>

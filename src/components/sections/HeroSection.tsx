@@ -1,8 +1,11 @@
 'use client';
 
 import { ArrowRight, Sparkles, ShieldCheck, Zap, Code, Terminal, Bot, GraduationCap, Store } from 'lucide-react';
+import { useLanguage } from '@/context/LanguageContext';
 
 export default function HeroSection() {
+  const { t } = useLanguage();
+
   return (
     <section id="hero" className="relative pt-32 pb-20 md:pt-40 md:pb-32 overflow-hidden bg-hero-pattern">
       {/* Glow backgrounds */}
@@ -15,20 +18,20 @@ export default function HeroSection() {
           {/* Top Pill Badge */}
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-200/80 dark:bg-slate-900/80 border border-slate-300 dark:border-brand-500/30 text-slate-800 dark:text-slate-200 text-xs sm:text-sm font-medium mb-8 backdrop-blur-md shadow-lg shadow-brand-500/5">
             <Sparkles className="w-4 h-4 text-brand-500 animate-spin" style={{ animationDuration: '4s' }} />
-            <span>Mitra Digital Solution — Partner Bisnis UMKM, Skripsi Mahasiswa & Enterprise</span>
+            <span>{t('Mitra Digital Solution — Partner Bisnis UMKM, Skripsi Mahasiswa & Enterprise')}</span>
             <span className="px-2 py-0.5 rounded-full bg-brand-500/20 text-brand-600 dark:text-brand-400 text-[10px] font-bold uppercase tracking-wider">
-              Ramah Kantong
+              {t('Ramah Kantong')}
             </span>
           </div>
 
           {/* Main Headline */}
           <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.15] mb-6">
-            Solusi Software, <span className="text-gradient">Digital Marketing & SEO</span> untuk Bisnis Anda
+            {t('Solusi Software, ')}<span className="text-gradient">{t('Digital Marketing & SEO')}</span>{t(' untuk Bisnis Anda')}
           </h1>
 
           {/* Subheadline */}
           <p className="text-slate-600 dark:text-slate-300 text-base sm:text-xl leading-relaxed mb-10 max-w-3xl mx-auto font-normal">
-            Kami siap membantu pembuatan Website & Mobile Apps ramah kantong untuk <span className="text-brand-600 dark:text-brand-400 font-semibold">UMKM</span>, bimbingan koding <span className="text-brand-600 dark:text-brand-400 font-semibold">Tugas Akhir / Skripsi Mahasiswa</span>, hingga strategi Iklan Digital & ranking Google #1.
+            {t('Kami siap membantu pembuatan Website & Mobile Apps ramah kantong untuk UMKM, bimbingan koding Tugas Akhir / Skripsi Mahasiswa, hingga strategi Iklan Digital & ranking Google #1.')}
           </p>
 
           {/* CTA Buttons */}
@@ -39,7 +42,7 @@ export default function HeroSection() {
               rel="noopener noreferrer"
               className="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-brand-500 to-blue-600 hover:from-brand-400 hover:to-blue-500 text-white font-bold text-base shadow-xl shadow-brand-500/25 flex items-center justify-center gap-3 transition-all hover:scale-105"
             >
-              <span>Konsultasi Gratis via WA</span>
+              <span>{t('Konsultasi Gratis via WA')}</span>
               <ArrowRight className="w-5 h-5" />
             </a>
 
@@ -48,7 +51,7 @@ export default function HeroSection() {
               className="w-full sm:w-auto px-8 py-4 rounded-xl glass-panel hover:bg-slate-200/50 dark:hover:bg-white/10 text-slate-800 dark:text-slate-200 font-semibold text-base flex items-center justify-center gap-3 transition-all"
             >
               <Zap className="w-5 h-5 text-brand-500" />
-              <span>Lihat Semua Layanan</span>
+              <span>{t('Lihat Semua Layanan')}</span>
             </a>
           </div>
 
@@ -57,17 +60,17 @@ export default function HeroSection() {
             <div className="p-4 rounded-2xl glass-panel text-left">
               <div className="flex items-center gap-2 text-brand-500 mb-1">
                 <Store className="w-5 h-5" />
-                <span className="font-bold text-slate-900 dark:text-white text-lg sm:text-2xl">UMKM Ready</span>
+                <span className="font-bold text-slate-900 dark:text-white text-lg sm:text-2xl">{t('UMKM Ready')}</span>
               </div>
-              <p className="text-xs text-slate-500 dark:text-slate-400">Harga Terjangkau & Cepat</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400">{t('Harga Terjangkau & Cepat')}</p>
             </div>
 
             <div className="p-4 rounded-2xl glass-panel text-left">
               <div className="flex items-center gap-2 text-brand-500 mb-1">
                 <GraduationCap className="w-5 h-5" />
-                <span className="font-bold text-slate-900 dark:text-white text-lg sm:text-2xl">Tugas Akhir</span>
+                <span className="font-bold text-slate-900 dark:text-white text-lg sm:text-2xl">{t('Tugas Akhir')}</span>
               </div>
-              <p className="text-xs text-slate-500 dark:text-slate-400">Bimbingan Skripsi & Code</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400">{t('Bimbingan Skripsi & Code')}</p>
             </div>
 
             <div className="p-4 rounded-2xl glass-panel text-left">
@@ -75,15 +78,15 @@ export default function HeroSection() {
                 <Code className="w-5 h-5" />
                 <span className="font-bold text-slate-900 dark:text-white text-lg sm:text-2xl">100%</span>
               </div>
-              <p className="text-xs text-slate-500 dark:text-slate-400">Hak Cipta Source Code</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400">{t('Hak Cipta Source Code')}</p>
             </div>
 
             <div className="p-4 rounded-2xl glass-panel text-left">
               <div className="flex items-center gap-2 text-brand-500 mb-1">
                 <Bot className="w-5 h-5" />
-                <span className="font-bold text-slate-900 dark:text-white text-lg sm:text-2xl">SEO & Ads</span>
+                <span className="font-bold text-slate-900 dark:text-white text-lg sm:text-2xl">{t('SEO & Ads')}</span>
               </div>
-              <p className="text-xs text-slate-500 dark:text-slate-400">Rangking Google #1</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400">{t('Rangking Google #1')}</p>
             </div>
           </div>
 
@@ -102,24 +105,24 @@ export default function HeroSection() {
                 <Terminal className="w-3.5 h-3.5 text-brand-500" />
                 <span>mitra-digital-solutions.config.ts</span>
               </div>
-              <div className="text-[11px] text-emerald-500 font-medium">● Konsultasi Online</div>
+              <div className="text-[11px] text-emerald-500 font-medium">● {t('Konsultasi Online')}</div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-2 text-left">
               <div className="bg-slate-100 dark:bg-slate-950 p-4 rounded-xl border border-slate-200 dark:border-slate-800">
-                <div className="text-xs text-slate-500 dark:text-slate-400 mb-1">Paket UMKM & Toko Online</div>
-                <div className="text-sm font-semibold text-slate-900 dark:text-white font-mono text-brand-600 dark:text-brand-400">Siap Pakai & Cepat</div>
-                <div className="mt-2 text-[11px] text-slate-500">Website Penjualan & Katalog</div>
+                <div className="text-xs text-slate-500 dark:text-slate-400 mb-1">{t('Paket UMKM & Toko Online')}</div>
+                <div className="text-sm font-semibold text-slate-900 dark:text-white font-mono text-brand-600 dark:text-brand-400">{t('Siap Pakai & Cepat')}</div>
+                <div className="mt-2 text-[11px] text-slate-500">{t('Website Penjualan & Katalog')}</div>
               </div>
               <div className="bg-slate-100 dark:bg-slate-950 p-4 rounded-xl border border-slate-200 dark:border-slate-800">
-                <div className="text-xs text-slate-500 dark:text-slate-400 mb-1">Tugas Akhir / Skripsi</div>
-                <div className="text-sm font-semibold text-slate-900 dark:text-white font-mono text-brand-600 dark:text-brand-400">Bimbingan Koding Full</div>
-                <div className="mt-2 text-[11px] text-slate-500">Penjelasan Alur & Source Code</div>
+                <div className="text-xs text-slate-500 dark:text-slate-400 mb-1">{t('Tugas Akhir / Skripsi')}</div>
+                <div className="text-sm font-semibold text-slate-900 dark:text-white font-mono text-brand-600 dark:text-brand-400">{t('Bimbingan Koding Full')}</div>
+                <div className="mt-2 text-[11px] text-slate-500">{t('Penjelasan Alur & Source Code')}</div>
               </div>
               <div className="bg-slate-100 dark:bg-slate-950 p-4 rounded-xl border border-slate-200 dark:border-slate-800">
-                <div className="text-xs text-slate-500 dark:text-slate-400 mb-1">SEO & Digital Marketing</div>
-                <div className="text-sm font-semibold text-slate-900 dark:text-white font-mono text-brand-600 dark:text-brand-400">Google Ads & Meta Ads</div>
-                <div className="mt-2 text-[11px] text-slate-500">Optimasi Ranking Halaman 1</div>
+                <div className="text-xs text-slate-500 dark:text-slate-400 mb-1">{t('SEO & Digital Marketing')}</div>
+                <div className="text-sm font-semibold text-slate-900 dark:text-white font-mono text-brand-600 dark:text-brand-400">{t('Google Ads & Meta Ads')}</div>
+                <div className="mt-2 text-[11px] text-slate-500">{t('Optimasi Ranking Halaman 1')}</div>
               </div>
             </div>
           </div>

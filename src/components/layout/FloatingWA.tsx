@@ -1,14 +1,17 @@
 'use client';
 
 import { MessageSquare, Sparkles } from 'lucide-react';
+import { useLanguage } from '@/context/LanguageContext';
 
 export default function FloatingWA() {
+  const { t } = useLanguage();
+
   return (
     <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-2 group">
       {/* Tooltip badge */}
       <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-900/90 border border-brand-500/30 text-slate-200 text-xs shadow-xl backdrop-blur-md animate-bounce">
         <Sparkles className="w-3.5 h-3.5 text-brand-500" />
-        <span>Konsultasi Gratis via WA</span>
+        <span>{t('Konsultasi Gratis via WA')}</span>
       </div>
 
       {/* Button */}

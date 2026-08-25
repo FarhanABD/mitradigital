@@ -3,9 +3,10 @@
 import { useState } from 'react';
 import { servicesData } from '@/data/services';
 import { ServiceItem } from '@/types';
+import { useLanguage } from '@/context/LanguageContext';
 import { 
-  Globe, Smartphone, Bot, Building2, Palette, Server, 
-  TrendingUp, SearchCheck, CheckCircle2, ArrowRight, X, Sparkles 
+   Globe, Smartphone, Bot, Building2, Palette, Server, 
+   TrendingUp, SearchCheck, CheckCircle2, ArrowRight, X, Sparkles 
 } from 'lucide-react';
 
 const iconMap: Record<string, any> = {
@@ -21,6 +22,7 @@ const iconMap: Record<string, any> = {
 
 export default function ServicesSection() {
   const [selectedService, setSelectedService] = useState<ServiceItem | null>(null);
+  const { t } = useLanguage();
 
   return (
     <section id="layanan" className="py-24 relative bg-slate-50 dark:bg-dark-bg transition-colors duration-300">
@@ -30,13 +32,13 @@ export default function ServicesSection() {
         <div className="text-center max-w-3xl mx-auto mb-16">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-500/10 border border-brand-500/20 text-brand-600 dark:text-brand-400 text-xs font-semibold uppercase tracking-wider mb-3">
             <Sparkles className="w-3.5 h-3.5" />
-            <span>Layanan Digital Lengkap</span>
+            <span>{t('Layanan Digital Lengkap')}</span>
           </div>
           <h2 className="text-3xl sm:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-4">
-            Solusi Software, SEO & <span className="text-gradient">Digital Marketing</span>
+            {t('Solusi Software, SEO & ')}<span className="text-gradient">{t('Digital Marketing')}</span>
           </h2>
           <p className="text-slate-600 dark:text-slate-400 text-base sm:text-lg">
-            Dari pembuatan Website & Mobile Apps, Bimbingan Tugas Kuliah / Skripsi, hingga Pemasaran Digital & SEO untuk Melejitkan UMKM Anda.
+            {t('Dari pembuatan Website & Mobile Apps, Bimbingan Tugas Kuliah / Skripsi, hingga Pemasaran Digital & SEO untuk Melejitkan UMKM Anda.')}
           </p>
         </div>
 
@@ -53,7 +55,7 @@ export default function ServicesSection() {
               >
                 {service.popular && (
                   <span className="absolute -top-3 right-6 px-3 py-1 bg-gradient-to-r from-brand-500 to-blue-600 text-white font-bold text-[10px] uppercase tracking-wider rounded-full shadow-md">
-                    Paling Diminati
+                    {t('Paling Diminati')}
                   </span>
                 )}
 
@@ -63,18 +65,18 @@ export default function ServicesSection() {
                   </div>
 
                   <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
-                    {service.title}
+                    {t(service.title)}
                   </h3>
 
                   <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-6">
-                    {service.shortDesc}
+                    {t(service.shortDesc)}
                   </p>
 
                   <ul className="space-y-2 mb-8">
                     {service.features.map((feat, idx) => (
                       <li key={idx} className="flex items-start gap-2.5 text-xs text-slate-700 dark:text-slate-300">
                         <CheckCircle2 className="w-4 h-4 text-brand-500 shrink-0 mt-0.5" />
-                        <span>{feat}</span>
+                        <span>{t(feat)}</span>
                       </li>
                     ))}
                   </ul>
@@ -84,7 +86,7 @@ export default function ServicesSection() {
                   onClick={() => setSelectedService(service)}
                   className="w-full py-3 px-4 rounded-xl bg-slate-200/70 dark:bg-white/5 hover:bg-brand-500/20 border border-slate-300 dark:border-white/10 hover:border-brand-500/40 text-slate-800 dark:text-slate-200 font-semibold text-xs flex items-center justify-center gap-2 transition-all"
                 >
-                  <span>Lihat Detail Spesifikasi</span>
+                  <span>{t('Lihat Detail Spesifikasi')}</span>
                   <ArrowRight className="w-4 h-4" />
                 </button>
               </div>
@@ -101,6 +103,7 @@ export default function ServicesSection() {
             <button
               onClick={() => setSelectedService(null)}
               className="absolute top-6 right-6 p-2 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white rounded-full bg-slate-100 dark:bg-slate-800 transition-colors"
+              aria-label="Close modal"
             >
               <X className="w-5 h-5" />
             </button>
@@ -113,35 +116,35 @@ export default function ServicesSection() {
                 })()}
               </div>
               <div>
-                <h3 className="text-2xl font-bold text-slate-900 dark:text-white">{selectedService.title}</h3>
-                <span className="text-xs text-brand-600 dark:text-brand-400 font-medium">Rekomendasi: {selectedService.recommendedFor}</span>
+                <h3 className="text-2xl font-bold text-slate-900 dark:text-white">{t(selectedService.title)}</h3>
+                <span className="text-xs text-brand-600 dark:text-brand-400 font-medium">{t('Rekomendasi: ')}{t(selectedService.recommendedFor)}</span>
               </div>
             </div>
 
             <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed mb-6">
-              {selectedService.fullDesc}
+              {t(selectedService.fullDesc)}
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
               <div className="p-4 rounded-xl bg-slate-100 dark:bg-slate-950 border border-slate-200 dark:border-slate-800">
-                <h4 className="text-slate-900 dark:text-white font-semibold text-sm mb-3">Fitur Kunci:</h4>
+                <h4 className="text-slate-900 dark:text-white font-semibold text-sm mb-3">{t('Fitur Kunci:')}</h4>
                 <ul className="space-y-2">
                   {selectedService.features.map((f, i) => (
                     <li key={i} className="flex items-start gap-2 text-xs text-slate-700 dark:text-slate-300">
                       <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
-                      <span>{f}</span>
+                      <span>{t(f)}</span>
                     </li>
                   ))}
                 </ul>
               </div>
 
               <div className="p-4 rounded-xl bg-slate-100 dark:bg-slate-950 border border-slate-200 dark:border-slate-800">
-                <h4 className="text-slate-900 dark:text-white font-semibold text-sm mb-3">Deliverables & Garansi:</h4>
+                <h4 className="text-slate-900 dark:text-white font-semibold text-sm mb-3">{t('Deliverables & Garansi:')}</h4>
                 <ul className="space-y-2">
                   {selectedService.deliverables.map((d, i) => (
                     <li key={i} className="flex items-start gap-2 text-xs text-slate-700 dark:text-slate-300">
                       <CheckCircle2 className="w-4 h-4 text-brand-500 shrink-0 mt-0.5" />
-                      <span>{d}</span>
+                      <span>{t(d)}</span>
                     </li>
                   ))}
                 </ul>
@@ -155,13 +158,13 @@ export default function ServicesSection() {
                 rel="noopener noreferrer"
                 className="w-full py-3.5 rounded-xl bg-gradient-to-r from-brand-500 to-blue-600 hover:from-brand-400 text-white font-bold text-sm text-center shadow-lg shadow-brand-500/25"
               >
-                Pesan Layanan Ini via WA
+                {t('Pesan Layanan Ini via WA')}
               </a>
               <button
                 onClick={() => setSelectedService(null)}
                 className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-300 text-sm font-semibold"
               >
-                Tutup
+                {t('Tutup')}
               </button>
             </div>
           </div>

@@ -1,7 +1,12 @@
+'use client';
+
 import { testimonialsData } from '@/data/testimonials';
 import { Star, MessageCircle, Quote } from 'lucide-react';
+import { useLanguage } from '@/context/LanguageContext';
 
 export default function TestimonialsSection() {
+  const { t } = useLanguage();
+
   return (
     <section className="py-24 relative bg-slate-50 dark:bg-dark-bg transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -10,13 +15,13 @@ export default function TestimonialsSection() {
         <div className="text-center max-w-3xl mx-auto mb-16">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-500/10 border border-brand-500/20 text-brand-600 dark:text-brand-400 text-xs font-semibold uppercase tracking-wider mb-3">
             <MessageCircle className="w-3.5 h-3.5" />
-            <span>Testimoni Klien</span>
+            <span>{t('Testimoni Klien')}</span>
           </div>
           <h2 className="text-3xl sm:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-4">
-            Kepercayaan Dari <span className="text-gradient">Mitra Bisnis</span>
+            {t('Kepercayaan Dari ')}<span className="text-gradient">{t('Mitra Bisnis')}</span>
           </h2>
           <p className="text-slate-600 dark:text-slate-400 text-base sm:text-lg">
-            Dengarkan langsung ulasan dari para pemimpin perusahaan dan founder yang telah sukses mentransformasi bisnis bersama kami.
+            {t('Dengarkan langsung ulasan dari para pemimpin perusahaan dan founder yang telah sukses mentransformasi bisnis bersama kami.')}
           </p>
         </div>
 
@@ -35,7 +40,7 @@ export default function TestimonialsSection() {
                 </div>
 
                 <p className="text-slate-700 dark:text-slate-300 text-sm italic leading-relaxed mb-6">
-                  "{item.content}"
+                  "{t(item.content)}"
                 </p>
               </div>
 
@@ -48,8 +53,8 @@ export default function TestimonialsSection() {
                 />
                 <div>
                   <h4 className="text-slate-900 dark:text-white font-bold text-sm">{item.name}</h4>
-                  <p className="text-slate-500 dark:text-slate-400 text-xs">{item.role} — <span className="text-brand-600 dark:text-brand-400">{item.company}</span></p>
-                  <span className="text-[10px] text-slate-400 dark:text-slate-500 font-mono mt-0.5 block">{item.projectType}</span>
+                  <p className="text-slate-500 dark:text-slate-400 text-xs">{t(item.role)} — <span className="text-brand-600 dark:text-brand-400">{t(item.company)}</span></p>
+                  <span className="text-[10px] text-slate-400 dark:text-slate-500 font-mono mt-0.5 block">{t(item.projectType)}</span>
                 </div>
               </div>
             </div>

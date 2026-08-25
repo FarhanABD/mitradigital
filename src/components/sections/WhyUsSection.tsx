@@ -1,6 +1,11 @@
+'use client';
+
 import { ShieldCheck, Code, Zap, Lock, RefreshCw, Headphones } from 'lucide-react';
+import { useLanguage } from '@/context/LanguageContext';
 
 export default function WhyUsSection() {
+  const { t } = useLanguage();
+
   const advantages = [
     {
       icon: Code,
@@ -42,13 +47,13 @@ export default function WhyUsSection() {
         <div className="text-center max-w-3xl mx-auto mb-16">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-500/10 border border-brand-500/20 text-brand-600 dark:text-brand-400 text-xs font-semibold uppercase tracking-wider mb-3">
             <ShieldCheck className="w-3.5 h-3.5" />
-            <span>Mengapa Memilih Kami</span>
+            <span>{t('Mengapa Memilih Kami')}</span>
           </div>
           <h2 className="text-3xl sm:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-4">
-            Komitmen Kualitas & <span className="text-gradient">Standar Rekayasa</span>
+            {t('Komitmen Kualitas & ')}<span className="text-gradient">{t('Standar Rekayasa')}</span>
           </h2>
           <p className="text-slate-600 dark:text-slate-400 text-base sm:text-lg">
-            Kami menghadirkan nilai tambah nyata melebihi sekadar penulisan baris kode, memastikan investasi digital Anda membuahkan hasil optimal.
+            {t('Kami menghadirkan nilai tambah nyata melebihi sekadar penulisan baris kode, memastikan investasi digital Anda membuahkan hasil optimal.')}
           </p>
         </div>
 
@@ -62,8 +67,8 @@ export default function WhyUsSection() {
                   <div className="w-12 h-12 rounded-xl bg-brand-500/10 border border-brand-500/20 flex items-center justify-center text-brand-500 mb-6">
                     <IconComp className="w-6 h-6" />
                   </div>
-                  <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-3">{item.title}</h3>
-                  <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">{item.desc}</p>
+                  <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-3">{t(item.title)}</h3>
+                  <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">{t(item.desc)}</p>
                 </div>
               </div>
             );

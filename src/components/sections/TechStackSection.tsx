@@ -1,9 +1,10 @@
 'use client';
 
 import { useState } from 'react';
+import { useLanguage } from '@/context/LanguageContext';
 import { 
-  Zap, ShieldCheck, Cpu, Search, Sparkles, Scale,
-  Clock, CheckCircle2, ArrowRight
+   Zap, ShieldCheck, Cpu, Search, Sparkles, Scale,
+   Clock, CheckCircle2, ArrowRight
 } from 'lucide-react';
 
 const valueProps = [
@@ -86,6 +87,7 @@ const valueProps = [
 
 export default function TechStackSection() {
   const [activeTab, setActiveTab] = useState(0);
+  const { t } = useLanguage();
   const currentProp = valueProps[activeTab];
   const IconComponent = currentProp.icon;
 
@@ -97,13 +99,13 @@ export default function TechStackSection() {
         <div className="text-center max-w-3xl mx-auto mb-14">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-500/10 border border-brand-500/20 text-brand-600 dark:text-brand-400 text-xs font-semibold uppercase tracking-wider mb-3">
             <CheckCircle2 className="w-3.5 h-3.5" />
-            <span>Standar Kualitas Kami</span>
+            <span>{t('Standar Kualitas Kami')}</span>
           </div>
           <h2 className="text-3xl sm:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-4">
-            Jaminan Hasil & <span className="text-gradient">Kualitas Terbaik</span>
+            {t('Jaminan Hasil & ')}<span className="text-gradient">{t('Kualitas Terbaik')}</span>
           </h2>
           <p className="text-slate-600 dark:text-slate-400 text-base sm:text-lg">
-            Anda fokus pada pertumbuhan bisnis, kami pastikan sistem aplikasi Anda dibangun dengan standar kualitas tertinggi yang aman, cepat, dan handal.
+            {t('Anda fokus pada pertumbuhan bisnis, kami pastikan sistem aplikasi Anda dibangun dengan standar kualitas tertinggi yang aman, cepat, dan handal.')}
           </p>
         </div>
 
@@ -119,7 +121,7 @@ export default function TechStackSection() {
                   : 'bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
               }`}
             >
-              {item.tabName}
+              {t(item.tabName)}
             </button>
           ))}
         </div>
@@ -131,13 +133,13 @@ export default function TechStackSection() {
             {/* Left Content */}
             <div className="lg:col-span-8">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-500/10 text-brand-600 dark:text-brand-400 text-xs font-semibold mb-4">
-                <span>{currentProp.badge}</span>
+                <span>{t(currentProp.badge)}</span>
               </div>
               <h3 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white mb-3">
-                {currentProp.title}
+                {t(currentProp.title)}
               </h3>
               <p className="text-slate-600 dark:text-slate-300 text-sm sm:text-base mb-8">
-                {currentProp.subtitle}
+                {t(currentProp.subtitle)}
               </p>
 
               {/* Benefits List */}
@@ -149,10 +151,10 @@ export default function TechStackSection() {
                     </div>
                     <div>
                       <h4 className="text-sm font-bold text-slate-900 dark:text-white">
-                        {b.title}
+                        {t(b.title)}
                       </h4>
                       <p className="text-xs text-slate-600 dark:text-slate-400 mt-0.5">
-                        {b.desc}
+                        {t(b.desc)}
                       </p>
                     </div>
                   </div>
@@ -169,15 +171,13 @@ export default function TechStackSection() {
                 {currentProp.highlightStat}
               </span>
               <span className="text-xs font-medium text-slate-600 dark:text-slate-400">
-                {currentProp.highlightLabel}
+                {t(currentProp.highlightLabel)}
               </span>
             </div>
 
           </div>
         </div>
-
       </div>
     </section>
   );
 }
-

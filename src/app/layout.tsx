@@ -4,6 +4,7 @@ import './globals.css';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import FloatingWA from '@/components/layout/FloatingWA';
+import { LanguageProvider } from '@/context/LanguageContext';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -40,14 +41,16 @@ export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
-}) {
+ }) {
   return (
     <html lang="id" className="dark scroll-smooth">
       <body className={`${inter.className} bg-slate-50 dark:bg-dark-bg text-slate-900 dark:text-slate-100 antialiased selection:bg-brand-500 selection:text-slate-950 transition-colors duration-300`}>
-        <Navbar />
-        <main className="min-h-screen">{children}</main>
-        <Footer />
-        <FloatingWA />
+        <LanguageProvider>
+          <Navbar />
+          <main className="min-h-screen">{children}</main>
+          <Footer />
+          <FloatingWA />
+        </LanguageProvider>
       </body>
     </html>
   );

@@ -2,12 +2,14 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Code2, Menu, X, ArrowUpRight, PhoneCall, Sun, Moon } from 'lucide-react';
+import { Code2, Menu, X, ArrowUpRight, PhoneCall, Sun, Moon, Globe } from 'lucide-react';
+import { useLanguage } from '@/context/LanguageContext';
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [theme, setTheme] = useState<'dark' | 'light'>('dark');
+  const { language, setLanguage, t } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -39,12 +41,11 @@ export default function Navbar() {
   };
 
   const navLinks = [
-    { name: 'Layanan', href: '#layanan' },
-    { name: 'Standar Kualitas', href: '#techstack' },
-    { name: 'Portofolio', href: '#portofolio' },
-    { name: 'Keunggulan', href: '#keunggulan' },
-    { name: 'Cara Kerja', href: '#carakerja' },
-    { name: 'FAQ', href: '#faq' },
+    { name: t('Layanan'), href: '#layanan' },
+    { name: t('Standar Kualitas'), href: '#techstack' },
+    { name: t('Portofolio'), href: '#portofolio' },
+    { name: t('Keunggulan'), href: '#keunggulan' },
+    { name: t('FAQ'), href: '#faq' },
   ];
 
   return (
@@ -78,7 +79,7 @@ export default function Navbar() {
                 Mitra Digital <span className="text-brand-500">Solution</span>
               </span>
               <span className="text-[10px] tracking-widest text-slate-500 dark:text-slate-400 uppercase font-medium">
-                Software House & AI Agency
+                {t('Software House & AI Agency')}
               </span>
             </div>
           </Link>
@@ -96,8 +97,18 @@ export default function Navbar() {
             ))}
           </nav>
 
-          {/* Right Actions: Theme Switcher & WA CTA */}
+          {/* Right Actions: Theme Switcher, Language Switcher & WA CTA */}
           <div className="hidden lg:flex items-center gap-3">
+            {/* Language Switcher */}
+            <button
+              onClick={() => setLanguage(language === 'id' ? 'en' : 'id')}
+              aria-label="Toggle Language"
+              className="flex items-center gap-1.5 px-3 py-2 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-300 dark:hover:bg-slate-700 transition-all duration-300 text-xs font-bold shadow-sm"
+            >
+              <Globe className="w-3.5 h-3.5" />
+              <span>{language.toUpperCase()}</span>
+            </button>
+
             {/* Theme Toggle Button */}
             <button
               onClick={toggleTheme}
@@ -114,13 +125,23 @@ export default function Navbar() {
               className="flex items-center gap-2 px-4 py-2 text-xs font-semibold text-white bg-gradient-to-r from-brand-500 to-blue-600 hover:from-brand-400 hover:to-blue-500 rounded-full shadow-lg shadow-brand-500/25 transition-all hover:scale-105"
             >
               <PhoneCall className="w-4 h-4" />
-              <span>Konsultasi Gratis</span>
+              <span>{t('Konsultasi Gratis')}</span>
               <ArrowUpRight className="w-3.5 h-3.5" />
             </a>
           </div>
 
-          {/* Mobile Menu Button & Theme toggle */}
+          {/* Mobile Menu Button, Theme toggle & Language switcher */}
           <div className="lg:hidden flex items-center gap-2">
+            {/* Language Switcher */}
+            <button
+              onClick={() => setLanguage(language === 'id' ? 'en' : 'id')}
+              aria-label="Toggle Language"
+              className="flex items-center px-2.5 py-1.5 rounded-lg bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-200 text-xs font-bold"
+            >
+              <Globe className="w-3.5 h-3.5 mr-1" />
+              <span>{language.toUpperCase()}</span>
+            </button>
+
             <button
               onClick={toggleTheme}
               aria-label="Toggle Dark / Light Theme"
@@ -161,7 +182,7 @@ export default function Navbar() {
               className="mt-2 flex items-center justify-center gap-2 w-full py-3 text-sm font-bold text-white bg-gradient-to-r from-brand-500 to-blue-600 rounded-xl shadow-lg"
             >
               <PhoneCall className="w-4 h-4" />
-              <span>Konsultasi WhatsApp</span>
+              <span>{t('Konsultasi WhatsApp')}</span>
             </a>
           </div>
         </div>
