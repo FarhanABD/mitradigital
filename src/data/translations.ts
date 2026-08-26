@@ -383,5 +383,41 @@ export const translations: Record<string, string> = {
   "Tidak perlu mengisi formulir panjang. Klik tombol di bawah untuk terhubung langsung dengan konsultan teknis kami di nomor ": "No need to fill out long forms. Click the button below to connect directly with our technical consultant at ",
   "Layanan Konsultasi Bebas 24/7": "Free 24/7 Consultation Service",
   "Ramah untuk UMKM, Mahasiswa, & Perusahaan": "Friendly for MSMEs, Students, & Corporates",
-  "Chat WhatsApp (": "Chat on WhatsApp ("
+  "Chat WhatsApp (": "Chat on WhatsApp (",
+
+  // Partner Logo Marquee
+  "Mitra Bisnis Kami": "Our Business Partners",
+  "Kami bangga telah dipercaya oleh berbagai perusahaan, startup, dan institusi untuk mewujudkan solusi digital terbaik.": "We are proud to have been trusted by various companies, startups, and institutions to realize the best digital solutions.",
+
+  // New Services Descriptions & Features
+  "Bikin website modern yang cepat, tampil rapi di HP, dan siap pakai. Cocok untuk menaikkan citra bisnis UMKM/Startup, hingga kebutuhan tugas akhir & skripsi.": "Create a modern, fast, mobile-friendly, and ready-to-use website. Perfect for boosting the image of MSMEs/Startups, as well as final project & thesis needs.",
+  "Teknologi modern (Next.js & React), loading super cepat": "Modern technology (Next.js & React), super-fast loading",
+  "Tampilan custom menarik & nyaman digunakan (UI/UX)": "Attractive & user-friendly custom UI/UX design",
+  "Siap pakai + dibimbing sampai paham (khusus skripsi)": "Ready-to-use + guided until you understand (specifically for thesis)",
+  "Sudah dioptimasi SEO dasar agar mudah dicari di Google": "Optimized with basic SEO to make it easy to find on Google",
+  "Dongkrak penjualan dan jangkau lebih banyak pembeli lewat iklan tertarget serta pengelolaan konten media sosial yang rapi dan profesional.": "Boost sales and reach more buyers through targeted ads and clean, professional social media content management.",
+  "Setting & optimasi iklan Google Ads, Meta (FB & IG Ads)": "Setting & optimization of Google Ads, Meta (FB & IG Ads)",
+  "Riset target pasar & penulisan teks penawaran (copywriting)": "Market research & high-converting copywriting",
+  "Pembuatan desain konten visual & video Reels/TikTok": "Creation of visual content designs & Reels/TikTok videos",
+  "Laporan performa & analisis hasil penjualan berkala": "Regular performance reports & sales results analysis",
+  "Bantu website bisnis atau UMKM Anda berada di halaman pertama Google secara alami, agar calon pelanggan datang terus-menerus tanpa harus terus bayar iklan.": "Help your business or MSME website rank on the first page of Google organically, so potential customers keep coming without continuous ad spend.",
+  "Perbaikan kecepatan & struktur website agar disukai Google": "Website speed & structure improvements to be loved by Google",
+  "Riset kata kunci pembeli yang paling sering dicari target pasar": "Researching high-intent keywords most searched by your target market",
+  "Optimasi artikel & konten halaman sesuai aturan SEO": "Article & page content optimization following SEO best practices",
+  "Setup Google Business Profile agar toko/usaha makin mudah ditemukan di sekitar lokasi": "Google Business Profile setup to make your store/business easier to find locally",
+  "Buat aplikasi Android dan iOS yang ringan, mudah digunakan, dan kaya fitur untuk mendukung operasional bisnis Anda atau penyelesaian project kuliah.": "Build lightweight, user-friendly, and feature-rich Android and iOS apps to support your business operations or college projects.",
+  "Satu aplikasi langsung bisa untuk Android & iOS": "One single codebase for both Android & iOS",
+  "Fitur notifikasi otomatis & database real-time": "Automatic notifications & real-time database features",
+  "Integrasi GPS, kamera HP, dan sistem pembayaran (Payment Gateway)": "GPS, mobile camera, and payment system (Payment Gateway) integration",
+  "Pendampingan alur sistem dari awal sampai siap rilis": "System workflow guidance from scratch to release readiness",
+  "Hemat waktu dan tenaga dengan asisten virtual berteknologi AI. Balas chat pelanggan 24/7 dan selesaikan tugas rutin bisnis secara otomatis.": "Save time and effort with AI-powered virtual assistants. Reply to customer chats 24/7 and automate routine business tasks.",
+  "Bot WhatsApp & Website siap jawab pertanyaan pelanggan 24 jam": "WhatsApp & Website bot ready to answer customer questions 24/7",
+  "Otomatisasi pemrosesan dokumen & input data": "Document processing & data input automation",
+  "Integrasi model AI pintar (Gemini AI / ChatGPT)": "Smart AI model integration (Gemini AI / ChatGPT)",
+  "Layanan tetap aktif melayani meski Anda sedang tidur": "Services stay active serving customers even while you sleep",
+  "Kelola pembukuan, stok barang, hingga laporan penjualan dengan sistem kasir (POS) dan perangkat lunak bisnis yang dibuat sesuai kebutuhan Anda.": "Manage bookkeeping, inventory, and sales reports with a POS cashier system and custom business software tailored to your needs.",
+  "Akses berlapang (Admin, Kasir, Owner) dalam satu sistem": "Multi-role access (Admin, Cashier, Owner) in one system",
+  "Pantau stok barang & laporan keuangan secara real-time": "Monitor inventory & financial reports in real-time",
+  "Cetak struk otomatis & ekspor data ke Excel/PDF": "Automatic receipt printing & data export to Excel/PDF",
+  "Solusi fleksibel dan ramah kantong untuk UMKM maupun kebutuhan Tugas Akhir": "Flexible and budget-friendly solution for MSMEs and Final Project needs"
 };

@@ -23,7 +23,7 @@ function ImageCarousel({ images, title }: { images: string[]; title: string }) {
   return (
     <div className="relative h-52 sm:h-56 w-full overflow-hidden bg-slate-900 group/carousel">
       {/* Images track */}
-      <div 
+      <div
         className="flex w-full h-full transition-transform duration-500 ease-out"
         style={{ transform: `translateX(-${currentIndex * 100}%)` }}
       >
@@ -66,11 +66,10 @@ function ImageCarousel({ images, title }: { images: string[]; title: string }) {
                   e.stopPropagation();
                   setCurrentIndex(idx);
                 }}
-                className={`w-1.5 h-1.5 rounded-full transition-all ${
-                  currentIndex === idx
+                className={`w-1.5 h-1.5 rounded-full transition-all ${currentIndex === idx
                     ? 'w-4 bg-brand-400'
                     : 'bg-white/50 hover:bg-white'
-                }`}
+                  }`}
               />
             ))}
           </div>
@@ -95,7 +94,7 @@ export default function PortfolioSection() {
           setProjectsList(resData.data);
         }
       })
-      .catch(() => {});
+      .catch(() => { });
   }, []);
 
   const categories = [
@@ -124,7 +123,7 @@ export default function PortfolioSection() {
             {t('Hasil Karya ')}<span className="text-gradient">{t('Mitra Digital')}</span>
           </h2>
           <p className="text-slate-600 dark:text-slate-400 text-base sm:text-lg">
-            {t('Beberapa hasil karya terbaik yang telah kami bagun untuk berbagai klien industri , personal, hingga UMKM.')}
+            {t('Beberapa hasil karya terbaik yang telah kami kerjakan untuk berbagai klien industri , personal, hingga UMKM.')}
           </p>
         </div>
 
@@ -225,9 +224,9 @@ export default function PortfolioSection() {
             </button>
 
             <div className="relative rounded-2xl overflow-hidden mb-6 border border-slate-200 dark:border-slate-800">
-              <ImageCarousel 
-                images={activeItem.images && activeItem.images.length > 0 ? activeItem.images : [activeItem.image]} 
-                title={activeItem.title} 
+              <ImageCarousel
+                images={activeItem.images && activeItem.images.length > 0 ? activeItem.images : [activeItem.image]}
+                title={activeItem.title}
               />
             </div>
 

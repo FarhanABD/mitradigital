@@ -15,6 +15,8 @@ import {
   UploadCloud,
   X,
   Link as LinkIcon,
+  Briefcase,
+  Layers,
 } from 'lucide-react';
 import Link from 'next/link';
 
@@ -294,7 +296,6 @@ export default function AdminUploadPage() {
       <Navbar />
 
       <main className="flex-1 py-32 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto w-full">
-        {/* Navigation back */}
         <Link
           href="/"
           className="inline-flex items-center gap-2 text-xs font-semibold text-slate-500 hover:text-brand-500 mb-8 transition-colors"
@@ -302,6 +303,24 @@ export default function AdminUploadPage() {
           <ArrowLeft className="w-4 h-4" />
           <span>Kembali ke Beranda</span>
         </Link>
+
+        {/* Dashboard Navigation Tabs */}
+        <div className="flex gap-4 border-b border-slate-200 dark:border-slate-800 mb-8">
+          <Link
+            href="/admin/upload"
+            className="pb-4 px-2 text-sm font-bold text-brand-500 flex items-center gap-2 transition-colors border-b-2 border-brand-500"
+          >
+            <Layers className="w-4 h-4" />
+            <span>Upload Portofolio</span>
+          </Link>
+          <Link
+            href="/admin/upload-logo"
+            className="pb-4 px-2 text-sm font-semibold text-slate-500 hover:text-brand-500 flex items-center gap-2 transition-colors border-b-2 border-transparent"
+          >
+            <Briefcase className="w-4 h-4" />
+            <span>Upload Logo Mitra</span>
+          </Link>
+        </div>
 
         <div className="glass-panel p-6 sm:p-10 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-xl">
           <div className="flex items-center gap-3 mb-2">

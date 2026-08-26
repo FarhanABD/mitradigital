@@ -104,3 +104,23 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: #00d2d3;
 }
+
+/* Infinite Horizontal Logo Marquee Animations */
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee-infinite {
+  display: flex;
+  width: max-content;
+  animation: marquee 25s linear infinite;
+}
+
+.animate-marquee-infinite:hover {
+  animation-play-state: paused;
+}
