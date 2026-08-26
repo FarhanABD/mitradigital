@@ -37,9 +37,9 @@ export default function ContactSection() {
                 <MapPin className="w-6 h-6" />
               </div>
               <div>
-                <h4 className="text-slate-900 dark:text-white font-bold text-base mb-1">{t('Alamat Kantor')}</h4>
+                <h4 className="text-slate-900 dark:text-white font-bold text-base mb-1">{t('Virtual Office')}</h4>
                 <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
-                  {t('Sudirman Central Business District (SCBD), Jakarta & Bandung Tech Hub, Indonesia')}
+                  {t('Layanan Digital Tanpa Batas Wilayah')}
                 </p>
               </div>
             </div>
@@ -51,7 +51,7 @@ export default function ContactSection() {
               <div>
                 <h4 className="text-slate-900 dark:text-white font-bold text-base mb-1">{t('Email Resmi')}</h4>
                 <p className="text-slate-600 dark:text-slate-400 text-sm font-mono">
-                  consultation@mitradigital.id / halo@mitradigital.id
+                  mitradigital@gmail.com
                 </p>
               </div>
             </div>
