@@ -8,7 +8,7 @@ export default async function AdminNewsPage() {
   const articles = await getArticles(false); // fetch all articles (including drafts)
 
   return (
-    <div className="p-8 max-w-7xl mx-auto">
+    <div className="pt-24 pb-20 p-8 max-w-7xl mx-auto min-h-screen">
       <div className="flex items-center justify-between mb-8">
         <div>
           <h1 className="text-3xl font-bold text-slate-900 dark:text-white">Kelola Berita & Artikel</h1>

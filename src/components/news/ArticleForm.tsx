@@ -80,7 +80,7 @@ export default function ArticleForm({ initialData, isEdit = false }: ArticleForm
   };
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-5xl mx-auto p-6 space-y-8">
+    <form onSubmit={handleSubmit} className="pt-24 pb-20 px-6 max-w-5xl mx-auto space-y-8 min-h-screen">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
           <Link href="/admin/news" className="p-2 hover:bg-slate-200 dark:hover:bg-slate-800 rounded-lg transition-colors">
