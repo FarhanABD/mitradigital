@@ -9,7 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@tiptap/extension-image": "^3.30.5",
+    "@tiptap/pm": "^3.30.5",
+    "@tiptap/react": "^3.30.5",
+    "@tiptap/starter-kit": "^3.30.5",
     "clsx": "^2.1.0",
+    "date-fns": "^4.4.0",
     "firebase-admin": "^14.2.0",
     "lucide-react": "^0.344.0",
     "next": "14.1.0",
@@ -17,6 +22,7 @@
     "react-dom": "^18.2.0",
     "resend": "^6.18.0",
     "tailwind-merge": "^2.2.1",
+    "uuid": "^14.0.2",
     "zod": "^4.4.3"
   },
   "devDependencies": {

@@ -41,11 +41,12 @@ export default function Navbar() {
   };
 
   const navLinks = [
-    { name: t('Layanan'), href: '#layanan' },
-    { name: t('Standar Kualitas'), href: '#techstack' },
-    { name: t('Portofolio'), href: '#portofolio' },
-    { name: t('Keunggulan'), href: '#keunggulan' },
-    { name: t('FAQ'), href: '#faq' },
+    { name: t('Layanan'), href: '/#layanan' },
+    { name: t('Standar Kualitas'), href: '/#techstack' },
+    { name: t('Portofolio'), href: '/#portofolio' },
+    { name: t('Keunggulan'), href: '/#keunggulan' },
+    { name: t('FAQ'), href: '/#faq' },
+    { name: t('Berita'), href: '/news' },
   ];
 
   return (

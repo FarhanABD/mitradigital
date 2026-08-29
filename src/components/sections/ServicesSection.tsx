@@ -1,12 +1,13 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { servicesData } from '@/data/services';
 import { ServiceItem } from '@/types';
 import { useLanguage } from '@/context/LanguageContext';
 import { 
    Globe, Smartphone, Bot, Building2, Palette, Server, 
-   TrendingUp, SearchCheck, CheckCircle2, ArrowRight, X, Sparkles 
+   TrendingUp, SearchCheck, CheckCircle2, ArrowRight, X, Sparkles, Tag
 } from 'lucide-react';
 
 const iconMap: Record<string, any> = {
@@ -35,15 +36,15 @@ export default function ServicesSection() {
             <span>{t('Layanan Digital Lengkap')}</span>
           </div>
           <h2 className="text-3xl sm:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-4">
-            {t('Solusi Software, SEO & ')}<span className="text-gradient">{t('Digital Marketing')}</span>
+            {t('Solusi Software & ')}<span className="text-gradient">{t('Digital Marketing')}</span>
           </h2>
           <p className="text-slate-600 dark:text-slate-400 text-base sm:text-lg">
-            {t('Dari pembuatan Website & Mobile Apps, Bimbingan Tugas Kuliah / Skripsi, hingga Pemasaran Digital & SEO untuk Melejitkan UMKM Anda.')}
+            {t('Dari pembuatan Website & Mobile Apps, Bimbingan Tugas Kuliah / Skripsi, hingga Pemasaran Digital untuk Melejitkan UMKM Anda.')}
           </p>
         </div>
 
         {/* Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {servicesData.map((service) => {
             const IconComponent = iconMap[service.iconName] || Globe;
             return (
@@ -64,9 +65,11 @@ export default function ServicesSection() {
                     <IconComponent className="w-7 h-7" />
                   </div>
 
-                  <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
-                    {t(service.title)}
-                  </h3>
+                  <Link href={`/pricelist/${service.id}`}>
+                    <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors flex items-center justify-between">
+                      <span>{t(service.title)}</span>
+                    </h3>
+                  </Link>
 
                   <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-6">
                     {t(service.shortDesc)}
@@ -82,13 +85,23 @@ export default function ServicesSection() {
                   </ul>
                 </div>
 
-                <button
-                  onClick={() => setSelectedService(service)}
-                  className="w-full py-3 px-4 rounded-xl bg-slate-200/70 dark:bg-white/5 hover:bg-brand-500/20 border border-slate-300 dark:border-white/10 hover:border-brand-500/40 text-slate-800 dark:text-slate-200 font-semibold text-xs flex items-center justify-center gap-2 transition-all"
-                >
-                  <span>{t('Lihat Detail Spesifikasi')}</span>
-                  <ArrowRight className="w-4 h-4" />
-                </button>
+                <div className="flex flex-col sm:flex-row items-center gap-2 pt-2">
+                  <Link
+                    href={`/pricelist/${service.id}`}
+                    className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-brand-500 to-blue-600 hover:from-brand-400 text-white font-semibold text-xs flex items-center justify-center gap-2 transition-all shadow-md shadow-brand-500/10"
+                  >
+                    <Tag className="w-3.5 h-3.5" />
+                    <span>{t('Lihat Pricelist & Paket')}</span>
+                    <ArrowRight className="w-3.5 h-3.5 ml-auto" />
+                  </Link>
+
+                  <button
+                    onClick={() => setSelectedService(service)}
+                    className="w-full sm:w-auto py-3 px-4 rounded-xl bg-slate-200/70 dark:bg-white/5 hover:bg-slate-300 dark:hover:bg-white/10 border border-slate-300 dark:border-white/10 text-slate-800 dark:text-slate-200 font-semibold text-xs flex items-center justify-center gap-1.5 transition-all shrink-0"
+                  >
+                    <span>{t('Detail')}</span>
+                  </button>
+                </div>
               </div>
             );
           })}
@@ -152,14 +165,13 @@ export default function ServicesSection() {
             </div>
 
             <div className="flex flex-col sm:flex-row items-center gap-3">
-              <a
-                href={`https://wa.me/6281353401336?text=Halo%20Mitra%20Digital,%20saya%20tertarik%20dengan%20layanan%20${encodeURIComponent(selectedService.title)}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full py-3.5 rounded-xl bg-gradient-to-r from-brand-500 to-blue-600 hover:from-brand-400 text-white font-bold text-sm text-center shadow-lg shadow-brand-500/25"
+              <Link
+                href={`/pricelist/${selectedService.id}`}
+                className="w-full py-3.5 rounded-xl bg-gradient-to-r from-brand-500 to-blue-600 hover:from-brand-400 text-white font-bold text-sm text-center shadow-lg shadow-brand-500/25 flex items-center justify-center gap-2"
               >
-                {t('Pesan Layanan Ini via WA')}
-              </a>
+                <Tag className="w-4 h-4" />
+                <span>{t('Lihat Pricelist & Paket Lengkap')}</span>
+              </Link>
               <button
                 onClick={() => setSelectedService(null)}
                 className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-300 text-sm font-semibold"

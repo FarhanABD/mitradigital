@@ -57,8 +57,6 @@ export default function Footer() {
               <li><a href="#layanan" className="hover:text-brand-500 transition-colors">{t('Pengembangan Web & WebApp')}</a></li>
               <li><a href="#layanan" className="hover:text-brand-500 transition-colors">{t('Pengembangan Aplikasi Mobile')}</a></li>
               <li><a href="#layanan" className="hover:text-brand-500 transition-colors">{t('Custom Enterprise System')}</a></li>
-              <li><a href="#layanan" className="hover:text-brand-500 transition-colors">{t('AI Integration & Automation')}</a></li>
-              <li><a href="#layanan" className="hover:text-brand-500 transition-colors">{t('SEO (Search Engine Optimization)')}</a></li>
               <li><a href="#layanan" className="hover:text-brand-500 transition-colors">{t('Digital Marketing & Social Media')}</a></li>
             </ul>
           </div>

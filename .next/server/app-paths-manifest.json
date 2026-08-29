@@ -1,5 +1,6 @@
 {
-  "/api/portfolio/route": "app/api/portfolio/route.js",
   "/page": "app/page.js",
-  "/api/partners/route": "app/api/partners/route.js"
+  "/api/partners/route": "app/api/partners/route.js",
+  "/pricelist/[id]/page": "app/pricelist/[id]/page.js",
+  "/api/portfolio/route": "app/api/portfolio/route.js"
 }
