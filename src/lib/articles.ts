@@ -11,10 +11,9 @@ export async function getArticles(publishedOnly = true): Promise<Article[]> {
     if (publishedOnly) {
       query = query.where('isPublished', '==', true);
     }
-    query = query.orderBy('createdAt', 'desc');
 
     const snapshot = await query.get();
-    return snapshot.docs.map(doc => {
+    const articles = snapshot.docs.map(doc => {
       const data = doc.data();
       return {
         id: doc.id,
@@ -23,6 +22,9 @@ export async function getArticles(publishedOnly = true): Promise<Article[]> {
         updatedAt: data.updatedAt?.toMillis() || Date.now(),
       } as Article;
     });
+
+    // Sort in memory to avoid Firestore composite index requirement
+    return articles.sort((a, b) => b.createdAt - a.createdAt);
   } catch (error) {
     console.error('Error fetching articles:', error);
     return [];

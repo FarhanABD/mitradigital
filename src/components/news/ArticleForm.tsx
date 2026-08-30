@@ -16,6 +16,7 @@ interface ArticleFormProps {
 export default function ArticleForm({ initialData, isEdit = false }: ArticleFormProps) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [uploadingImage, setUploadingImage] = useState(false);
   const [formData, setFormData] = useState<Partial<Article>>({
     title: initialData?.title || '',
     slug: initialData?.slug || '',
@@ -43,6 +44,34 @@ export default function ArticleForm({ initialData, isEdit = false }: ArticleForm
       .replace(/[^a-z0-9]+/g, '-')
       .replace(/(^-|-$)+/g, '');
     setFormData((prev) => ({ ...prev, slug }));
+  };
+
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setUploadingImage(true);
+    try {
+      const data = new FormData();
+      data.append('file', file);
+      
+      const response = await fetch('/api/upload', {
+        method: 'POST',
+        body: data,
+      });
+      
+      const result = await response.json();
+      if (result.success) {
+        setFormData(prev => ({ ...prev, thumbnailUrl: result.url }));
+      } else {
+        alert(result.message || 'Gagal mengunggah gambar');
+      }
+    } catch (error) {
+      console.error(error);
+      alert('Terjadi kesalahan saat mengunggah gambar');
+    } finally {
+      setUploadingImage(false);
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -147,15 +176,44 @@ export default function ArticleForm({ initialData, isEdit = false }: ArticleForm
             </div>
 
             <div>
-              <label className="block text-sm font-medium mb-2">URL Gambar Cover</label>
-              <input
-                type="url"
-                name="thumbnailUrl"
-                value={formData.thumbnailUrl}
-                onChange={handleChange}
-                className="w-full px-4 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-lg text-sm outline-none focus:ring-2 focus:ring-brand-500"
-                placeholder="https://..."
-              />
+              <label className="block text-sm font-medium mb-2">Gambar Cover</label>
+              {formData.thumbnailUrl ? (
+                <div className="relative mb-3 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700 group">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={formData.thumbnailUrl} alt="Cover" className="w-full h-40 object-cover" />
+                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <button
+                      type="button"
+                      onClick={() => setFormData(prev => ({ ...prev, thumbnailUrl: '' }))}
+                      className="px-3 py-1.5 bg-red-500 text-white font-medium rounded-lg hover:bg-red-600 transition-colors text-sm"
+                    >
+                      Ganti Gambar
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <div className="relative">
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImageUpload}
+                    disabled={uploadingImage}
+                    className="w-full text-sm text-slate-500 dark:text-slate-400
+                      file:mr-4 file:py-2.5 file:px-4
+                      file:rounded-lg file:border-0
+                      file:text-sm file:font-semibold
+                      file:bg-brand-50 file:text-brand-700
+                      dark:file:bg-brand-900/30 dark:file:text-brand-400
+                      hover:file:bg-brand-100 dark:hover:file:bg-brand-900/50
+                      cursor-pointer outline-none border border-slate-200 dark:border-slate-800 rounded-lg p-1.5"
+                  />
+                  {uploadingImage && (
+                    <div className="absolute inset-0 bg-white/60 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg flex items-center justify-center text-sm font-semibold text-brand-600 dark:text-brand-400 z-10">
+                      Sedang Mengunggah...
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
 
             <label className="flex items-center gap-3 cursor-pointer pt-2">
