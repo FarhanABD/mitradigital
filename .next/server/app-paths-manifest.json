@@ -1,8 +1,5 @@
 {
   "/page": "app/page.js",
-  "/admin/upload-logo/page": "app/admin/upload-logo/page.js",
-  "/api/upload/route": "app/api/upload/route.js",
-  "/api/partners/route": "app/api/partners/route.js",
-  "/api/portfolio/route": "app/api/portfolio/route.js",
+  "/news/[slug]/page": "app/news/[slug]/page.js",
   "/news/page": "app/news/page.js"
 }

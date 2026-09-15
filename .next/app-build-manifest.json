@@ -16,10 +16,10 @@
       "static/chunks/main-app.js",
       "static/chunks/app/news/page.js"
     ],
-    "/admin/upload-logo/page": [
+    "/news/[slug]/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/admin/upload-logo/page.js"
+      "static/chunks/app/news/[slug]/page.js"
     ]
   }
 }

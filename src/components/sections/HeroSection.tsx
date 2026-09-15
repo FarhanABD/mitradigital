@@ -1,6 +1,6 @@
 'use client';
 
-import { ArrowRight, Sparkles, ShieldCheck, Zap, Code, Terminal, Bot, GraduationCap, Store } from 'lucide-react';
+import { ArrowRight, Sparkles, ShieldCheck, Zap, Code, Bot, GraduationCap, Store } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 
 export default function HeroSection() {
@@ -100,10 +100,6 @@ export default function HeroSection() {
                 <div className="w-3 h-3 rounded-full bg-red-500/80" />
                 <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
                 <div className="w-3 h-3 rounded-full bg-green-500/80" />
-              </div>
-              <div className="px-4 py-1 rounded-md bg-slate-100 dark:bg-slate-950 text-[11px] font-mono text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-800 flex items-center gap-2">
-                <Terminal className="w-3.5 h-3.5 text-brand-500" />
-                <span>mitra-digital-solutions.config.ts</span>
               </div>
               <div className="text-[11px] text-emerald-500 font-medium">● {t('Konsultasi Online')}</div>
             </div>
