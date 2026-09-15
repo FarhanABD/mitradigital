@@ -419,5 +419,14 @@ export const translations: Record<string, string> = {
   "Akses berlapang (Admin, Kasir, Owner) dalam satu sistem": "Multi-role access (Admin, Cashier, Owner) in one system",
   "Pantau stok barang & laporan keuangan secara real-time": "Monitor inventory & financial reports in real-time",
   "Cetak struk otomatis & ekspor data ke Excel/PDF": "Automatic receipt printing & data export to Excel/PDF",
-  "Solusi fleksibel dan ramah kantong untuk UMKM maupun kebutuhan Tugas Akhir": "Flexible and budget-friendly solution for MSMEs and Final Project needs"
+  "Solusi fleksibel dan ramah kantong untuk UMKM maupun kebutuhan Tugas Akhir": "Flexible and budget-friendly solution for MSMEs and Final Project needs",
+
+  // News Section
+  "Wawasan & Berita": "Insights & News",
+  "Artikel & Update ": "Latest Articles & ",
+  "Terbaru": "Updates",
+  "Dapatkan wawasan seputar inovasi teknologi, tips bisnis digital UMKM, panduan skripsi IT, dan strategi SEO.": "Gain insights on technology innovation, MSME digital business tips, IT thesis guides, and SEO strategies.",
+  "Lihat Semua Berita": "View All News",
+  "Baca Selengkapnya": "Read More",
+  "Belum ada artikel yang dipublikasikan.": "No articles published yet."
 };

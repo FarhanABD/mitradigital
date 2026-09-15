@@ -4,6 +4,7 @@ import TechStackSection from '@/components/sections/TechStackSection';
 import PortfolioSection from '@/components/sections/PortfolioSection';
 import WhyUsSection from '@/components/sections/WhyUsSection';
 import TestimonialsSection from '@/components/sections/TestimonialsSection';
+import NewsSection from '@/components/sections/NewsSection';
 import FaqSection from '@/components/sections/FaqSection';
 import ContactSection from '@/components/sections/ContactSection';
 
@@ -16,6 +17,7 @@ export default function Home() {
       <PortfolioSection />
       <WhyUsSection />
       <TestimonialsSection />
+      <NewsSection />
       <FaqSection />
       <ContactSection />
     </div>

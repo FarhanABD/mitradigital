@@ -1,5 +1,8 @@
 {
+  "/news/page": "app/news/page.js",
   "/page": "app/page.js",
+  "/api/portfolio/route": "app/api/portfolio/route.js",
   "/news/[slug]/page": "app/news/[slug]/page.js",
-  "/news/page": "app/news/page.js"
+  "/api/partners/route": "app/api/partners/route.js",
+  "/api/news/route": "app/api/news/route.js"
 }
