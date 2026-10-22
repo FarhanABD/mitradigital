@@ -37,7 +37,7 @@ export default function HeroSection() {
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
             <a
-              href="https://wa.me/6281353401336?text=Halo%20Mitra%20Digital%20Solution,%20saya%20ingin%20konsultasi%20pembuatan%20software%20/%20tugas%20kuliah%20/%20digital%20marketing"
+              href="https://wa.me/6287810963261?text=Halo%20Mitra%20Digital%20Solution,%20saya%20ingin%20konsultasi%20pembuatan%20software%20/%20tugas%20kuliah%20/%20digital%20marketing"
               target="_blank"
               rel="noopener noreferrer"
               className="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-brand-500 to-blue-600 hover:from-brand-400 hover:to-blue-500 text-white font-bold text-base shadow-xl shadow-brand-500/25 flex items-center justify-center gap-3 transition-all hover:scale-105"
@@ -92,37 +92,6 @@ export default function HeroSection() {
 
         </div>
 
-        {/* Dashboard Mockup Showcase */}
-        <div className="mt-16 relative max-w-5xl mx-auto">
-          <div className="rounded-2xl border border-slate-300 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 p-2 sm:p-4 shadow-2xl shadow-brand-500/10 backdrop-blur-xl overflow-hidden">
-            <div className="flex items-center justify-between px-3 py-2 border-b border-slate-200 dark:border-slate-800 mb-3">
-              <div className="flex items-center gap-2">
-                <div className="w-3 h-3 rounded-full bg-red-500/80" />
-                <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
-                <div className="w-3 h-3 rounded-full bg-green-500/80" />
-              </div>
-              <div className="text-[11px] text-emerald-500 font-medium">● {t('Konsultasi Online')}</div>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-2 text-left">
-              <div className="bg-slate-100 dark:bg-slate-950 p-4 rounded-xl border border-slate-200 dark:border-slate-800">
-                <div className="text-xs text-slate-500 dark:text-slate-400 mb-1">{t('Paket UMKM & Toko Online')}</div>
-                <div className="text-sm font-semibold text-slate-900 dark:text-white font-mono text-brand-600 dark:text-brand-400">{t('Siap Pakai & Cepat')}</div>
-                <div className="mt-2 text-[11px] text-slate-500">{t('Website Penjualan & Katalog')}</div>
-              </div>
-              <div className="bg-slate-100 dark:bg-slate-950 p-4 rounded-xl border border-slate-200 dark:border-slate-800">
-                <div className="text-xs text-slate-500 dark:text-slate-400 mb-1">{t('Tugas Akhir / Skripsi')}</div>
-                <div className="text-sm font-semibold text-slate-900 dark:text-white font-mono text-brand-600 dark:text-brand-400">{t('Bimbingan Koding Full')}</div>
-                <div className="mt-2 text-[11px] text-slate-500">{t('Penjelasan Alur & Source Code')}</div>
-              </div>
-              <div className="bg-slate-100 dark:bg-slate-950 p-4 rounded-xl border border-slate-200 dark:border-slate-800">
-                <div className="text-xs text-slate-500 dark:text-slate-400 mb-1">{t('SEO & Digital Marketing')}</div>
-                <div className="text-sm font-semibold text-slate-900 dark:text-white font-mono text-brand-600 dark:text-brand-400">{t('Google Ads & Meta Ads')}</div>
-                <div className="mt-2 text-[11px] text-slate-500">{t('Optimasi Ranking Halaman 1')}</div>
-              </div>
-            </div>
-          </div>
-        </div>
 
       </div>
     </section>

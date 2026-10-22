@@ -16,7 +16,7 @@ export default function FloatingWA() {
 
       {/* Button */}
       <a
-        href="https://wa.me/6281353401336?text=Halo%20Mitra%20Digital%20Solution,%20saya%20tertarik%20untuk%20diskusi%20proyek%20perangkat%20lunak%20/%20tugas%20kuliah."
+        href="https://wa.me/6287810963261?text=Halo%20Mitra%20Digital%20Solution,%20saya%20tertarik%20untuk%20diskusi%20proyek%20perangkat%20lunak%20/%20tugas%20kuliah."
         target="_blank"
         rel="noopener noreferrer"
         className="w-14 h-14 rounded-full bg-gradient-to-tr from-emerald-500 to-emerald-400 text-white flex items-center justify-center shadow-2xl shadow-emerald-500/40 hover:scale-110 active:scale-95 transition-all duration-300 relative"

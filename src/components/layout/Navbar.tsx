@@ -120,7 +120,7 @@ export default function Navbar() {
             </button>
 
             <a
-              href="https://wa.me/6281353401336?text=Halo%20Mitra%20Digital%20Solution,%20saya%20ingin%20konsultasi%20pembuatan%20software"
+              href="https://wa.me/6287810963261?text=Halo%20Mitra%20Digital%20Solution,%20saya%20ingin%20konsultasi%20pembuatan%20software"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 px-4 py-2 text-xs font-semibold text-white bg-gradient-to-r from-brand-500 to-blue-600 hover:from-brand-400 hover:to-blue-500 rounded-full shadow-lg shadow-brand-500/25 transition-all hover:scale-105"
@@ -177,7 +177,7 @@ export default function Navbar() {
               </a>
             ))}
             <a
-              href="https://wa.me/6281353401336?text=Halo%20Mitra%20Digital%20Solution,%20saya%20ingin%20konsultasi%20pembuatan%20software"
+              href="https://wa.me/6287810963261?text=Halo%20Mitra%20Digital%20Solution,%20saya%20ingin%20konsultasi%20pembuatan%20software"
               target="_blank"
               rel="noopener noreferrer"
               className="mt-2 flex items-center justify-center gap-2 w-full py-3 text-sm font-bold text-white bg-gradient-to-r from-brand-500 to-blue-600 rounded-xl shadow-lg"

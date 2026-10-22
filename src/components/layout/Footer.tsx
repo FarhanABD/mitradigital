@@ -79,15 +79,15 @@ export default function Footer() {
             <ul className="space-y-3 text-xs text-slate-600 dark:text-slate-400">
               <li className="flex items-start gap-2.5">
                 <MapPin className="w-4 h-4 text-brand-500 shrink-0 mt-0.5" />
-                <span>{t('Jakarta & Bandung Technology Park, Indonesia')}</span>
+                <span>{t('Grand Duta City, Cluster Ladera No j20/40, Iwul, Kec. Parung, Kabupaten Bogor, Jawa Barat 16330')}</span>
               </li>
               <li className="flex items-center gap-2.5">
                 <Mail className="w-4 h-4 text-brand-500 shrink-0" />
-                <span>info@mitradigital.id</span>
+                <a href="mailto:mitradigital@gmail.com" className="hover:text-brand-500 transition-colors">mitradigital@gmail.com</a>
               </li>
               <li className="flex items-center gap-2.5">
                 <Phone className="w-4 h-4 text-brand-500 shrink-0" />
-                <span>+62 813-5340-1336</span>
+                <a href="https://wa.me/6287810963261" target="_blank" rel="noopener noreferrer" className="hover:text-brand-500 transition-colors">+62 878 1096 3261</a>
               </li>
             </ul>
           </div>

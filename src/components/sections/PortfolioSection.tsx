@@ -266,7 +266,7 @@ export default function PortfolioSection() {
 
             <div className="flex flex-col sm:flex-row items-center gap-3">
               <a
-                href={`https://wa.me/6281353401336?text=Halo%20Mitra%20Digital,%20saya%20tertarik%20membuat%20sistem%20seperti%20${encodeURIComponent(activeItem.title)}`}
+                href={`https://wa.me/6287810963261?text=Halo%20Mitra%20Digital,%20saya%20tertarik%20membuat%20sistem%20seperti%20${encodeURIComponent(activeItem.title)}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full py-3.5 rounded-xl bg-gradient-to-r from-brand-500 to-blue-600 hover:from-brand-400 text-white font-bold text-sm text-center shadow-lg shadow-brand-500/25"

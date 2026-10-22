@@ -90,7 +90,7 @@ export default function PricelistPage({ params }: PageProps) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {service.packages.map((pkg) => {
-              const waUrl = `https://wa.me/6281353401336?text=${encodeURIComponent(pkg.waMessage)}`;
+              const waUrl = `https://wa.me/6287810963261?text=${encodeURIComponent(pkg.waMessage)}`;
 
               return (
                 <div
@@ -293,7 +293,7 @@ export default function PricelistPage({ params }: PageProps) {
               </p>
             </div>
             <a
-              href={`https://wa.me/6281353401336?text=Halo%20Mitra%20Digital,%20saya%20mau%20konsultasi%20custom%20layanan%20${encodeURIComponent(service.title)}`}
+              href={`https://wa.me/6287810963261?text=Halo%20Mitra%20Digital,%20saya%20mau%20konsultasi%20custom%20layanan%20${encodeURIComponent(service.title)}`}
               target="_blank"
               rel="noopener noreferrer"
               className="px-6 py-3.5 rounded-xl bg-white text-slate-900 font-bold text-xs hover:bg-slate-100 transition-all shrink-0 flex items-center gap-2 shadow-lg z-10"

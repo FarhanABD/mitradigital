@@ -5,8 +5,8 @@ import { useLanguage } from '@/context/LanguageContext';
 
 export default function ContactSection() {
   const { t } = useLanguage();
-  const waNumber = '6281353401336';
-  const displayWaNumber = '+62 813-5340-1336';
+  const waNumber = '6287810963261';
+  const displayWaNumber = '+62 878 1096 3261';
   const waUrl = `https://wa.me/${waNumber}?text=Halo%20Mitra%20Digital%20Solution,%20saya%20ingin%20konsultasi%20pembuatan%20software%20/%20website%20/%20tugas%20kuliah.`;
 
   return (
@@ -37,9 +37,9 @@ export default function ContactSection() {
                 <MapPin className="w-6 h-6" />
               </div>
               <div>
-                <h4 className="text-slate-900 dark:text-white font-bold text-base mb-1">{t('Virtual Office')}</h4>
+                <h4 className="text-slate-900 dark:text-white font-bold text-base mb-1">{t('Alamat Kantor')}</h4>
                 <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
-                  {t('Layanan Digital Tanpa Batas Wilayah')}
+                  {t('Grand Duta City, Cluster Ladera No j20/40, Iwul, Kec. Parung, Kabupaten Bogor, Jawa Barat 16330')}
                 </p>
               </div>
             </div>
